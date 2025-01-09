@@ -44,7 +44,7 @@ _data = {
 "fly": SubResource("Animation_343fo")
 }
 
-[node name="Сhakram" type="Area2D"]
+[node name="Сhakram" type="Area2D" groups=["enemies"]]
 collision_layer = 8
 collision_mask = 5
 script = ExtResource("1_motek")

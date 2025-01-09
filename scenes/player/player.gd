@@ -4,8 +4,8 @@ extends CharacterBody2D
 @onready var _chakram_throw_point = $ChakramThrowPoint
 
 @export var chakram_scene: PackedScene
-@export var SPEED = 400.0
-
+@export var life = 3
+@export var SPEED = 400.
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("throw_chakram"):
@@ -27,6 +27,11 @@ func _physics_process(_delta: float) -> void:
 	velocity = direction * SPEED
 	move_and_slide()
 
+
+func get_hit():
+	life -= 1
+	if life == 0:
+		queue_free()
 
 func throw_chakram():
 	var chakram = chakram_scene.instantiate()
