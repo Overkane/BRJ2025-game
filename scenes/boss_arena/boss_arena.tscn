@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbvomdgkssg2e"]
+
+[ext_resource type="Texture2D" uid="uid://dndiaybuux30t" path="res://icon.svg" id="1_v1822"]
+[ext_resource type="PackedScene" uid="uid://b1xyv0funrvab" path="res://scenes/player/player.tscn" id="2_0bmpq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_71p1n"]
+size = Vector2(64, 1080)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4bp80"]
+size = Vector2(63.9999, 1920)
+
+[node name="BossArena" type="CanvasLayer"]
+
+[node name="ArenaBackground" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_v1822")
+
+[node name="ArenaWalls" type="StaticBody2D" parent="."]
+
+[node name="LeftWall" type="CollisionShape2D" parent="ArenaWalls"]
+position = Vector2(32, 540)
+shape = SubResource("RectangleShape2D_71p1n")
+
+[node name="RightWall" type="CollisionShape2D" parent="ArenaWalls"]
+position = Vector2(1888, 540)
+shape = SubResource("RectangleShape2D_71p1n")
+
+[node name="DownWall" type="CollisionShape2D" parent="ArenaWalls"]
+position = Vector2(960, 1048)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_4bp80")
+
+[node name="TopWall" type="CollisionShape2D" parent="ArenaWalls"]
+position = Vector2(960, 32)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_4bp80")
+
+[node name="Player" parent="." instance=ExtResource("2_0bmpq")]
+position = Vector2(951, 408)

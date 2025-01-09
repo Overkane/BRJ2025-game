@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://dsyhl0fbklx8b"]
+[gd_scene load_steps=3 format=3 uid="uid://dsyhl0fbklx8b"]
 
-[ext_resource type="Script" path="res://main_menu.gd" id="1_6ou2o"]
+[ext_resource type="Script" path="res://scenes/main_menu/main_menu.gd" id="1_2fi0w"]
+[ext_resource type="PackedScene" uid="uid://cbvomdgkssg2e" path="res://scenes/boss_arena/boss_arena.tscn" id="2_g2or4"]
 
-[node name="CanvasLayer" type="CanvasLayer"]
-script = ExtResource("1_6ou2o")
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_2fi0w")
+boss_arena = ExtResource("2_g2or4")
 
 [node name="Menu" type="VBoxContainer" parent="."]
 anchors_preset = 8
@@ -34,4 +36,5 @@ text = "Credits"
 layout_mode = 2
 text = "Quit"
 
+[connection signal="pressed" from="Menu/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Menu/QuitButton" to="." method="_on_quit_button_pressed"]
