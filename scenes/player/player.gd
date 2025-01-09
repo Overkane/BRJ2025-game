@@ -12,12 +12,12 @@ func _input(event: InputEvent) -> void:
 		throw_chakram()
 
 func _physics_process(_delta: float) -> void:
-	
 	var direction = Input.get_vector("left", "right", "up", "down")
+	var mouse_pos = get_global_mouse_position()
 	
-	if direction.x > 0:
+	if mouse_pos.x > position.x:
 		_animated_sprite.flip_h = false
-	elif direction.x < 0:
+	elif mouse_pos.x < position.x:
 		_animated_sprite.flip_h = true
 	if direction == Vector2.ZERO:
 		_animated_sprite.play("idle")
