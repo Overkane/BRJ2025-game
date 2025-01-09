@@ -1,20 +1,21 @@
-[gd_scene load_steps=18 format=3 uid="uid://b1xyv0funrvab"]
+[gd_scene load_steps=19 format=3 uid="uid://b1xyv0funrvab"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_bnqte"]
-[ext_resource type="Texture2D" uid="uid://bfyrl7ahfjk1n" path="res://assets/player/idle_0.png" id="2_ejsiy"]
-[ext_resource type="Texture2D" uid="uid://c1c6ldme60671" path="res://assets/player/idle_1.png" id="3_r0rjy"]
-[ext_resource type="Texture2D" uid="uid://fupxrhwiogbp" path="res://assets/player/idle_2.png" id="4_1xfxi"]
-[ext_resource type="Texture2D" uid="uid://bsy8jarswnfa4" path="res://assets/player/idle_3.png" id="5_gqrol"]
-[ext_resource type="Texture2D" uid="uid://bj2v57tq7gik3" path="res://assets/player/idle_4.png" id="6_cd2se"]
-[ext_resource type="Texture2D" uid="uid://cbttk4m0b1tr8" path="res://assets/player/idle_5.png" id="7_c1cgs"]
-[ext_resource type="Texture2D" uid="uid://yvirsr57egb" path="res://assets/player/walk_0.png" id="8_c13gq"]
-[ext_resource type="Texture2D" uid="uid://b21w7nx7s82vr" path="res://assets/player/walk_1.png" id="9_o3ugk"]
-[ext_resource type="Texture2D" uid="uid://b2qa57bsfxb6i" path="res://assets/player/walk_2.png" id="10_ltxdc"]
-[ext_resource type="Texture2D" uid="uid://p1dy5tuslpq3" path="res://assets/player/walk_3.png" id="11_qygek"]
-[ext_resource type="Texture2D" uid="uid://5jrjc4ngfwh3" path="res://assets/player/walk_4.png" id="12_6ivs1"]
-[ext_resource type="Texture2D" uid="uid://nt5224hybd3i" path="res://assets/player/walk_5.png" id="13_o62us"]
-[ext_resource type="Texture2D" uid="uid://d0ne56ftfg6cf" path="res://assets/player/walk_6.png" id="14_wbahg"]
-[ext_resource type="Texture2D" uid="uid://bouhhyu8u0moi" path="res://assets/player/walk_7.png" id="15_mlrsg"]
+[ext_resource type="Texture2D" uid="uid://bfyrl7ahfjk1n" path="res://assets/player/idle/idle_0.png" id="2_ejsiy"]
+[ext_resource type="PackedScene" uid="uid://lh2ddbthhik4" path="res://scenes/chakram/chakram.tscn" id="2_lnfjf"]
+[ext_resource type="Texture2D" uid="uid://c1c6ldme60671" path="res://assets/player/idle/idle_1.png" id="3_r0rjy"]
+[ext_resource type="Texture2D" uid="uid://fupxrhwiogbp" path="res://assets/player/idle/idle_2.png" id="4_1xfxi"]
+[ext_resource type="Texture2D" uid="uid://bsy8jarswnfa4" path="res://assets/player/idle/idle_3.png" id="5_gqrol"]
+[ext_resource type="Texture2D" uid="uid://bj2v57tq7gik3" path="res://assets/player/idle/idle_4.png" id="6_cd2se"]
+[ext_resource type="Texture2D" uid="uid://cbttk4m0b1tr8" path="res://assets/player/idle/idle_5.png" id="7_c1cgs"]
+[ext_resource type="Texture2D" uid="uid://yvirsr57egb" path="res://assets/player/walk/walk_0.png" id="8_c13gq"]
+[ext_resource type="Texture2D" uid="uid://b21w7nx7s82vr" path="res://assets/player/walk/walk_1.png" id="9_o3ugk"]
+[ext_resource type="Texture2D" uid="uid://b2qa57bsfxb6i" path="res://assets/player/walk/walk_2.png" id="10_ltxdc"]
+[ext_resource type="Texture2D" uid="uid://p1dy5tuslpq3" path="res://assets/player/walk/walk_3.png" id="11_qygek"]
+[ext_resource type="Texture2D" uid="uid://5jrjc4ngfwh3" path="res://assets/player/walk/walk_4.png" id="12_6ivs1"]
+[ext_resource type="Texture2D" uid="uid://nt5224hybd3i" path="res://assets/player/walk/walk_5.png" id="13_o62us"]
+[ext_resource type="Texture2D" uid="uid://d0ne56ftfg6cf" path="res://assets/player/walk/walk_6.png" id="14_wbahg"]
+[ext_resource type="Texture2D" uid="uid://bouhhyu8u0moi" path="res://assets/player/walk/walk_7.png" id="15_mlrsg"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gugnh"]
 animations = [{
@@ -76,16 +77,24 @@ radius = 32.0
 height = 120.0
 
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(232, 72)
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_bnqte")
+chakram_scene = ExtResource("2_lnfjf")
+metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-256, -359)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_gugnh")
 animation = &"walk"
 frame = 1
 frame_progress = 0.869919
+centered = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2, 102)
+position = Vector2(-1, 0)
 shape = SubResource("CapsuleShape2D_nie6f")
+
+[node name="ChakramThrowPoint" type="Marker2D" parent="."]
+position = Vector2(19, 31)

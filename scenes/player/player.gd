@@ -1,8 +1,15 @@
 extends CharacterBody2D
 
 @onready var _animated_sprite = $AnimatedSprite2D
+@onready var _chakram_throw_point = $ChakramThrowPoint
 
-const SPEED = 400.0
+@export var chakram_scene: PackedScene
+@export var SPEED = 400.0
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("throw_chakram"):
+		throw_chakram()
 
 func _physics_process(_delta: float) -> void:
 	
@@ -19,3 +26,11 @@ func _physics_process(_delta: float) -> void:
 	
 	velocity = direction * SPEED
 	move_and_slide()
+
+
+func throw_chakram():
+	var chakram = chakram_scene.instantiate()
+	var chakram_position = _chakram_throw_point.global_position
+	var chakram_direction = chakram_position.direction_to(get_global_mouse_position())
+	chakram.setup(chakram_position, chakram_direction)
+	add_sibling(chakram)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b21w7nx7s82vr"
-path="res://.godot/imported/walk_1.png-8795c0ccdb8c637bca2b34482c6fdfdc.ctex"
+uid="uid://cmfbyxcnypt8i"
+path="res://.godot/imported/muzzle.png-8bd8fecd91e2cc564d255a9698aef2db.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/walk_1.png"
-dest_files=["res://.godot/imported/walk_1.png-8795c0ccdb8c637bca2b34482c6fdfdc.ctex"]
+source_file="res://assets/projectiles/muzzle.png"
+dest_files=["res://.godot/imported/muzzle.png-8bd8fecd91e2cc564d255a9698aef2db.ctex"]
 
 [params]
 
