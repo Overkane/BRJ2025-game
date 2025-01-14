@@ -1,13 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://dsyhl0fbklx8b"]
+[gd_scene load_steps=5 format=3 uid="uid://dsyhl0fbklx8b"]
 
 [ext_resource type="Script" path="res://scenes/main_menu/main_menu.gd" id="1_2fi0w"]
-[ext_resource type="PackedScene" uid="uid://cbvomdgkssg2e" path="res://scenes/boss_arena/boss_arena.tscn" id="2_g2or4"]
+[ext_resource type="AudioStream" uid="uid://b0frrbmsdfe3q" path="res://assets/music/Myst on the Moor.mp3" id="2_exg4j"]
+[ext_resource type="PackedScene" uid="uid://dy1ucm14pdeq3" path="res://scenes/main_menu/credits/credits.tscn" id="3_2h6cr"]
+[ext_resource type="PackedScene" uid="uid://cmkdd8vejyrav" path="res://scenes/main_menu/options/options_menu.tscn" id="3_bnxyv"]
 
-[node name="MainMenu" type="CanvasLayer"]
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_2fi0w")
-boss_arena = ExtResource("2_g2or4")
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_exg4j")
+autoplay = true
+bus = &"Music"
+parameters/looping = true
 
 [node name="Menu" type="VBoxContainer" parent="."]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -19,6 +33,7 @@ offset_right = 35.0
 offset_bottom = 68.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 
 [node name="PlayButton" type="Button" parent="Menu"]
 layout_mode = 2
@@ -36,5 +51,17 @@ text = "Credits"
 layout_mode = 2
 text = "Quit"
 
+[node name="OptionsMenu" parent="." instance=ExtResource("3_bnxyv")]
+visible = false
+layout_mode = 1
+
+[node name="Credits" parent="." instance=ExtResource("3_2h6cr")]
+visible = false
+layout_mode = 1
+
 [connection signal="pressed" from="Menu/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Menu/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="Menu/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="Menu/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="return_to_main_menu" from="OptionsMenu" to="." method="_on_options_menu_return_to_main_menu"]
+[connection signal="return_to_main_menu" from="Credits" to="." method="_on_credits_return_to_main_menu"]
