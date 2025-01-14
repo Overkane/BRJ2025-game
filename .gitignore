@@ -1,3 +1,9 @@
+# VS code related files
+.vscode/
+
+# Build folder
+/build
+
 # Godot 4+ specific ignores
 .godot/
 /android/
