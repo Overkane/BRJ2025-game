@@ -5,7 +5,7 @@ extends Control
 @onready var _options_menu = $OptionsMenu
 @onready var _quit_button = $Menu/QuitButton
 
-const BOSS_ARENA_SCENE := preload("res://scenes/boss_arena/boss_arena.tscn")
+const WORLD_SCENE := preload("res://scenes/world/world.tscn")
 
 enum MenuOptions { MAIN_MENU, OPTIONS, CREDITS }
 
@@ -13,10 +13,10 @@ enum MenuOptions { MAIN_MENU, OPTIONS, CREDITS }
 func _ready() -> void:
 	if OS.has_feature("web"):
 		_quit_button.hide()
-		
+	$OptionsMenu.set_default_audio_settings()
 
 func _on_play_button_pressed() -> void:
-	get_tree().change_scene_to_packed(BOSS_ARENA_SCENE)
+	get_tree().change_scene_to_packed(WORLD_SCENE)
 
 func _on_options_button_pressed() -> void:
 	switch_menu_option(MenuOptions.OPTIONS)

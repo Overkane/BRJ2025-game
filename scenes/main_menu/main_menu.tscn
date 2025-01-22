@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dsyhl0fbklx8b"]
 
 [ext_resource type="Script" path="res://scenes/main_menu/main_menu.gd" id="1_2fi0w"]
-[ext_resource type="AudioStream" uid="uid://b0frrbmsdfe3q" path="res://assets/music/Myst on the Moor.mp3" id="2_exg4j"]
+[ext_resource type="AudioStream" uid="uid://cbom36v322gxt" path="res://assets/music/Bleeping Demo.mp3" id="2_7gjwb"]
 [ext_resource type="PackedScene" uid="uid://dy1ucm14pdeq3" path="res://scenes/main_menu/credits/credits.tscn" id="3_2h6cr"]
 [ext_resource type="PackedScene" uid="uid://cmkdd8vejyrav" path="res://scenes/main_menu/options/options_menu.tscn" id="3_bnxyv"]
 
@@ -15,7 +15,7 @@ grow_vertical = 2
 script = ExtResource("1_2fi0w")
 
 [node name="MenuMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_exg4j")
+stream = ExtResource("2_7gjwb")
 autoplay = true
 bus = &"Music"
 parameters/looping = true
