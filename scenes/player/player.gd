@@ -70,14 +70,18 @@ func _physics_process(_delta: float) -> void:
 	var collision := move_and_collide(velocity * _delta)
 	if collision:
 		var collider = collision.get_collider()
+		var isPathable = false # If player can pass through object without bouncing
 		if collider is TileMapLayer:
-			var tileData = collider.get_cell_tile_data(collider.local_to_map(collision.get_position()))
+			var cellPosition: Vector2i = collider.local_to_map(collision.get_position())
+			var tileData: TileData = collider.get_cell_tile_data(cellPosition)
 			if tileData:
 				if tileData.get_custom_data("isTrap"):
 					on_death_reset()
 				elif tileData.get_custom_data("isActivator"):
-					pass
-					# Explode activator
+					destroyActivator(collider, cellPosition)
+					move_and_collide(velocity * _delta)
+					isPathable = true
+		if not isPathable:
 		velocity = velocity.bounce(collision.get_normal())
 
 
@@ -97,6 +101,7 @@ func _on_player_entered_magnetron_zone(magnetron: CharacterBody2D, isCheckpoint:
 	# Need to be last, so we save calculated values to checkpoint
 	if isCheckpoint:
 		activateCheckpoint(magnetron)
+
 
 func activateCheckpoint(magnetron: CharacterBody2D) -> void:
 	if magnetronCheckpoint != null:
@@ -119,3 +124,13 @@ func on_death_reset() -> void:
 		velocity = Vector2.ZERO
 	else:
 		print("No checkpoint found")
+
+# Activators destroy other activators nearby
+func destroyActivator(tileMapLayer: TileMapLayer, cellPosition: Vector2i) -> void:
+	tileMapLayer.erase_cell(cellPosition)
+	for nearCellPosition in tileMapLayer.get_surrounding_cells(cellPosition):
+		var tileData: TileData = tileMapLayer.get_cell_tile_data(nearCellPosition)
+		if tileData and tileData.get_custom_data("isActivator"):
+			destroyActivator(tileMapLayer, nearCellPosition)
+
+
