@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://df60px4n320j3"]
+[gd_scene load_steps=7 format=3 uid="uid://df60px4n320j3"]
 
 [ext_resource type="Script" path="res://scenes/magnetron/magnetron.gd" id="1_eoprn"]
 [ext_resource type="Texture2D" uid="uid://biv3wk6gy02rj" path="res://assets/magnetron.png" id="1_ukb0u"]
+[ext_resource type="Texture2D" uid="uid://cev1aycqwyke4" path="res://assets/magnetron_checkpoint_activated.png" id="3_xo4r8"]
+[ext_resource type="Texture2D" uid="uid://bj2f340ewkw50" path="res://assets/magnetron_checkpoint_deactivated.png" id="4_p5tx5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ne77"]
 radius = 15.5081
@@ -22,8 +24,16 @@ gravity_point = true
 scale = Vector2(2, 2)
 shape = SubResource("CircleShape2D_4ne77")
 
-[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+[node name="MagnetronSprite" type="Sprite2D" parent="Area2D"]
 texture = ExtResource("1_ukb0u")
+
+[node name="MagnetronCheckpointActivatedSprite" type="Sprite2D" parent="Area2D"]
+visible = false
+texture = ExtResource("3_xo4r8")
+
+[node name="MagnetronCheckpointDeactivatedSprite2" type="Sprite2D" parent="Area2D"]
+visible = false
+texture = ExtResource("4_p5tx5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_woi31")

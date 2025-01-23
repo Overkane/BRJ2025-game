@@ -12,6 +12,13 @@ var magnetron_orbitting_radius := 0.0
 var magnetron_orbitting_direction := 1
 var magnetron_initial_orbitting_angle := 0.0
 
+# Checkpoint system
+var magnetronCheckpoint: CharacterBody2D
+var checkpointPosition: Vector2
+var checkpointAnglePosition: float
+var checkpointOrbittingRadius: float
+var checkpoint_magnetron_orbitting_direction: float
+
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("LMB") and canUseSpaceJump:
@@ -63,19 +70,19 @@ func _physics_process(_delta: float) -> void:
 	var collision := move_and_collide(velocity * _delta)
 	if collision:
 		var collider = collision.get_collider()
-		print(collider)
-		print(global_position)
 		if collider is TileMapLayer:
 			var tileData = collider.get_cell_tile_data(collider.local_to_map(collision.get_position()))
-			print(tileData)
 			if tileData:
-				print(tileData.get_custom_data("isActivator"))
-				print(tileData.get_custom_data("isTrap"))
+				if tileData.get_custom_data("isTrap"):
+					on_death_reset()
+				elif tileData.get_custom_data("isActivator"):
+					pass
+					# Explode activator
 		velocity = velocity.bounce(collision.get_normal())
 
 
 # When player enter magnetron zone, he can use space jump and orbits around the magnetron
-func _on_player_entered_magnetron_zone(magnetron: CharacterBody2D) -> void:
+func _on_player_entered_magnetron_zone(magnetron: CharacterBody2D, isCheckpoint: bool) -> void:
 
 	canUseSpaceJump = true
 	currentMagnetron = magnetron
@@ -86,3 +93,29 @@ func _on_player_entered_magnetron_zone(magnetron: CharacterBody2D) -> void:
 	var entryPoint = global_position - magnetron.global_position
 	var cross = entryPoint.cross(velocity)
 	magnetron_orbitting_direction = sign(cross) if cross != 0 else 1
+
+	# Need to be last, so we save calculated values to checkpoint
+	if isCheckpoint:
+		activateCheckpoint(magnetron)
+
+func activateCheckpoint(magnetron: CharacterBody2D) -> void:
+	if magnetronCheckpoint != null:
+		magnetronCheckpoint.deactivate_checkpoint()
+	magnetron.activate_checkpoint()
+
+	magnetronCheckpoint = currentMagnetron
+	checkpointPosition = global_position
+	checkpointAnglePosition = magnetron_initial_orbitting_angle
+	checkpointOrbittingRadius = magnetron_orbitting_radius
+	checkpoint_magnetron_orbitting_direction = magnetron_orbitting_direction
+
+func on_death_reset() -> void:
+	if magnetronCheckpoint != null:
+		currentMagnetron = magnetronCheckpoint
+		global_position = checkpointPosition
+		magnetron_initial_orbitting_angle = checkpointAnglePosition
+		magnetron_orbitting_radius = checkpointOrbittingRadius
+		canUseSpaceJump = true
+		velocity = Vector2.ZERO
+	else:
+		print("No checkpoint found")
