@@ -1,12 +1,17 @@
 extends CharacterBody2D
 
+# Trajectory drawing
+# @onready var trajectory: Line2D = $Trajectory
+const MAX_TRAJECTORY_POINTS = 100
+
 # Player related
 const MAX_SPACE_JUMP_SPEED = 200
-var canUseSpaceJump := true
+var canUseSpaceJump := false
 var currentMousePos := Vector2.ZERO
 
 # Magnetron related
-const MAGNETRON_ORBITING_ANGULAR_SPEED := 1.5
+const MAGNETRON_ORBITING_ANGULAR_SPEED := 1.75
+const MAGNETRON_SUCKING_SPEED := 200.
 var currentMagnetron: CharacterBody2D
 var magnetron_orbitting_radius := 0.0
 var magnetron_orbitting_direction := 1
@@ -20,12 +25,16 @@ var checkpointOrbittingRadius: float
 var checkpoint_magnetron_orbitting_direction: float
 
 
+func _ready():
+	$GPUParticles2D.emitting = false
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("LMB") and canUseSpaceJump:
 		currentMousePos = get_global_mouse_position()
 	if event.is_action_released("LMB") and canUseSpaceJump:
 		# Can jump only when orbiting
 		if currentMagnetron != null:
+			$GPUParticles2D.emitting = true
 			canUseSpaceJump = false
 			currentMagnetron = null
 		
@@ -36,6 +45,8 @@ func _input(event: InputEvent) -> void:
 		velocity = finite_vector
 
 func _physics_process(_delta: float) -> void:
+	var oldPosition = global_position
+
 	# If player connected to magnetron, then he spins around it
 	if currentMagnetron != null:
 		velocity = Vector2.ZERO
@@ -43,8 +54,8 @@ func _physics_process(_delta: float) -> void:
 		global_position = (Vector2(1,0) * magnetron_orbitting_radius).rotated(magnetron_initial_orbitting_angle) + currentMagnetron.global_position
 
 	# Sucking towards closests visible magnetron in not orbitting near magnetron
-	if not canUseSpaceJump:
-		var area2DNearby = $Area2D.get_overlapping_bodies() as Array[CharacterBody2D]
+	if Input.is_action_pressed("RMB") and not canUseSpaceJump:
+		var area2DNearby = $MagnetronPullChecker.get_overlapping_bodies() as Array[CharacterBody2D]
 		var distancesToMagnetrons := {}
 		var closestDistance := 100000.0 # TODO fix condition
 
@@ -64,7 +75,7 @@ func _physics_process(_delta: float) -> void:
 			# Apply force to the player, to move towards the closest magnetron
 			var closestMagnetron = distancesToMagnetrons.get(closestDistance)
 			var directionToMagnetron = global_position.direction_to(closestMagnetron.global_position)
-			velocity += directionToMagnetron
+			velocity = directionToMagnetron * MAGNETRON_SUCKING_SPEED
 
 	# General movement
 	var collision := move_and_collide(velocity * _delta)
@@ -82,13 +93,15 @@ func _physics_process(_delta: float) -> void:
 					move_and_collide(velocity * _delta)
 					isPathable = true
 		if not isPathable:
-		velocity = velocity.bounce(collision.get_normal())
+			velocity = velocity.bounce(collision.get_normal()) * 0.9
+	
+	rotation = global_position.direction_to(oldPosition).angle()
 
 
 # When player enter magnetron zone, he can use space jump and orbits around the magnetron
 func _on_player_entered_magnetron_zone(magnetron: CharacterBody2D, isCheckpoint: bool) -> void:
-
 	canUseSpaceJump = true
+	$GPUParticles2D.emitting = false
 	currentMagnetron = magnetron
 	magnetron_orbitting_radius = global_position.distance_to(magnetron.global_position)
 	magnetron_initial_orbitting_angle = magnetron.global_position.direction_to(global_position).angle()
@@ -133,4 +146,21 @@ func destroyActivator(tileMapLayer: TileMapLayer, cellPosition: Vector2i) -> voi
 		if tileData and tileData.get_custom_data("isActivator"):
 			destroyActivator(tileMapLayer, nearCellPosition)
 
+# # Draw trajectory till first collision or MAX_TRAJECTORY_POINTS
+# func updateTrajectory(delta) -> void:
+# 	trajectory.clear_points()
+# 	var pos := Vector2.ZERO
 
+# 	# Same calculation like when mouse input is released
+# 	var lastMousePos = get_global_mouse_position()
+# 	var velocity_vector = (currentMousePos - lastMousePos)
+# 	var finite_vector = velocity_vector.normalized() * min(velocity_vector.length(), MAX_SPACE_JUMP_SPEED)
+# 	var trajectory_velocity = finite_vector
+
+# 	for i in range(MAX_TRAJECTORY_POINTS):
+# 		trajectory.add_point(pos)
+# 		pos += trajectory_velocity * delta
+
+# 		var collision = $Trajectory/TrajectoryCollisionChecker.move_and_collide(trajectory_velocity * delta)
+# 		if collision:
+# 			break
