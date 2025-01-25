@@ -21,7 +21,8 @@ func _on_boss_1_area_enter_body_entered(body:Node2D) -> void:
 	boss1.rotation = 3 * PI / 2 # Rotation to the endter area by default
 	boss1.playerHit.connect(_on_player_hit)
 	boss1.activate(body)
-	add_child(boss1)
+	# TODO what is the point of calling deferred? Editor debugger asked to add this
+	call_deferred("add_child", boss1)
 
 func _on_player_hit(_body: Node2D) -> void:
 	$Player.on_death_reset()
