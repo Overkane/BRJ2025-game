@@ -5,7 +5,10 @@ const boss1_scene := preload("res://scenes/bosses/boss_1.tscn")
 
 
 func _ready():
-	$Activator.body_entered.connect(_on_activator_body_entered.bind($Activator))
+	for activator in get_tree().get_nodes_in_group("activators"):
+		activator.body_entered.connect(_on_activator_body_entered.bind(activator))
+	for trap in get_tree().get_nodes_in_group("traps"):
+		trap.body_entered.connect(_on_player_hit)
 
 
 # Player entered boss 1 area
@@ -20,7 +23,7 @@ func _on_boss_1_area_enter_body_entered(body:Node2D) -> void:
 	boss1.activate(body)
 	add_child(boss1)
 
-func _on_player_hit() -> void:
+func _on_player_hit(_body: Node2D) -> void:
 	$Player.on_death_reset()
 
 # Activators for tutorial destroy tiles nearby with help of invisible activator tiles

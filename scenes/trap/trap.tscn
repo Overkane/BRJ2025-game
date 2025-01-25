@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1i5da"]
 size = Vector2(16, 6.5)
 
-[node name="Trap" type="Area2D"]
+[node name="Trap" type="Area2D" groups=["traps"]]
 collision_layer = 0
 collision_mask = 2
 

@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dblmn"]
 size = Vector2(16.5, 8)
 
-[node name="Activator" type="Area2D"]
+[node name="Activator" type="Area2D" groups=["activators"]]
 collision_layer = 0
 collision_mask = 2
 monitorable = false
