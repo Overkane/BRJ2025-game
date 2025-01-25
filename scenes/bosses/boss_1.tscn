@@ -1,9 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://c0dvogempwjhr"]
+[gd_scene load_steps=14 format=3 uid="uid://c0dvogempwjhr"]
 
 [ext_resource type="Script" path="res://scenes/bosses/boss_1.gd" id="1_vh6w2"]
 [ext_resource type="Texture2D" uid="uid://c40ffapuulj3m" path="res://assets/boss1-Sheet.png" id="2_2pt3e"]
 [ext_resource type="Texture2D" uid="uid://cg6lei1spj2jj" path="res://assets/activator.png" id="2_5nk41"]
-[ext_resource type="Texture2D" uid="uid://dp5bl2tc4pqtp" path="res://assets/trap.png" id="4_5gn46"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c347o"]
 atlas = ExtResource("2_2pt3e")
@@ -82,9 +81,6 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ncpdg"]
 size = Vector2(16.1141, 4.18302)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rfsnw"]
-size = Vector2(15.5, 4)
-
 [node name="Boss1" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 2
@@ -149,15 +145,5 @@ position = Vector2(74, 91)
 
 [node name="SideCannonPoint3" type="Marker2D" parent="."]
 position = Vector2(-6, -91)
-
-[node name="Trap1" type="Area2D" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="Trap1"]
-position = Vector2(-108, 49)
-texture = ExtResource("4_5gn46")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Trap1"]
-position = Vector2(-107.75, 55)
-shape = SubResource("RectangleShape2D_rfsnw")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

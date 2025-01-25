@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bv2mryk3m0kc2"]
+
+[ext_resource type="Texture2D" uid="uid://cg6lei1spj2jj" path="res://assets/activator.png" id="1_1vim8"]
+[ext_resource type="Script" path="res://scenes/activator/activator.gd" id="1_vbvre"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dblmn"]
+size = Vector2(16.5, 8)
+
+[node name="Activator" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("1_vbvre")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_1vim8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.25, 4)
+shape = SubResource("RectangleShape2D_dblmn")

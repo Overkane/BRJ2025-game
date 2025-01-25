@@ -64,13 +64,14 @@ func _physics_process(_delta: float) -> void:
 				if staticBody.is_in_group("magnetrons"):
 					var space_state = get_world_2d().direct_space_state
 
-					var query = PhysicsRayQueryParameters2D.create(Vector2(0, 0), staticBody.global_position, 1)
+					var query = PhysicsRayQueryParameters2D.create(global_position, staticBody.global_position, 1)
 					var result = space_state.intersect_ray(query)
 					if result:
-						var distance = staticBody.global_position.distance_to(global_position)
-						closestDistance = min(closestDistance, distance)
+						if result.collider.is_in_group("magnetrons"):
+							var distance = staticBody.global_position.distance_to(global_position)
+							closestDistance = min(closestDistance, distance)
 
-						distancesToMagnetrons[distance] = staticBody
+							distancesToMagnetrons[distance] = staticBody
 		if closestDistance > 0 and closestDistance != 100000.0:
 			# Apply force to the player, to move towards the closest magnetron
 			var closestMagnetron = distancesToMagnetrons.get(closestDistance)
@@ -80,18 +81,18 @@ func _physics_process(_delta: float) -> void:
 	# General movement
 	var collision := move_and_collide(velocity * _delta)
 	if collision:
-		var collider = collision.get_collider()
 		var isPathable = false # If player can pass through object without bouncing
-		if collider is TileMapLayer:
-			var cellPosition: Vector2i = collider.local_to_map(collision.get_position())
-			var tileData: TileData = collider.get_cell_tile_data(cellPosition)
-			if tileData:
-				if tileData.get_custom_data("isTrap"):
-					on_death_reset()
-				elif tileData.get_custom_data("isActivator"):
-					destroyActivator(collider, cellPosition)
-					move_and_collide(velocity * _delta)
-					isPathable = true
+		# var collider = collision.get_collider()
+		# if collider is TileMapLayer:
+		# 	var cellPosition: Vector2i = collider.local_to_map(collision.get_position())
+		# 	var tileData: TileData = collider.get_cell_tile_data(cellPosition)
+		# 	if tileData:
+		# 		if tileData.get_custom_data("isTrap"):
+		# 			on_death_reset()
+		# 		elif tileData.get_custom_data("isActivator"):
+		# 			destroyActivator(collider, cellPosition)
+		# 			move_and_collide(velocity * _delta)
+		# 			isPathable = true
 		if not isPathable:
 			velocity = velocity.bounce(collision.get_normal()) * 0.9
 	
@@ -137,14 +138,6 @@ func on_death_reset() -> void:
 		velocity = Vector2.ZERO
 	else:
 		print("No checkpoint found")
-
-# Activators destroy other activators nearby
-func destroyActivator(tileMapLayer: TileMapLayer, cellPosition: Vector2i) -> void:
-	tileMapLayer.erase_cell(cellPosition)
-	for nearCellPosition in tileMapLayer.get_surrounding_cells(cellPosition):
-		var tileData: TileData = tileMapLayer.get_cell_tile_data(nearCellPosition)
-		if tileData and tileData.get_custom_data("isActivator"):
-			destroyActivator(tileMapLayer, nearCellPosition)
 
 # # Draw trajectory till first collision or MAX_TRAJECTORY_POINTS
 # func updateTrajectory(delta) -> void:
