@@ -1,8 +1,6 @@
 extends CharacterBody2D
 # TODO main cannon, side cannons
 
-signal playerHit
-
 # General properties
 var currentPhase := 0
 var playerTarget: CharacterBody2D
@@ -78,5 +76,5 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 
 func _onProjectileBodyEntered(body: Node2D, projectile: Area2D) -> void:
 	if body.is_in_group("player"):
-		playerHit.emit()
+		playerTarget.on_death_reset()
 	projectile.queue_free()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://cbvomdgkssg2e"]
+[gd_scene load_steps=24 format=4 uid="uid://cbvomdgkssg2e"]
 
 [ext_resource type="Script" path="res://scenes/world/world.gd" id="1_kaq1e"]
 [ext_resource type="PackedScene" uid="uid://df60px4n320j3" path="res://scenes/magnetron/magnetron.tscn" id="2_1ggxs"]
@@ -103,9 +103,6 @@ custom_data_layer_0/name = "isActivator"
 custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_jpsim")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_cqbc2"]
-radius = 7.2
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n1300"]
 size = Vector2(7.5, 80)
 
@@ -195,6 +192,33 @@ _data = {
 "tutorial1": SubResource("Animation_yuijk")
 }
 
+[sub_resource type="Animation" id="Animation_h5hd0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RMB-icon:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("9_1j7ab")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(232, 240)]
+}
+
 [sub_resource type="Animation" id="Animation_p584q"]
 resource_name = "tutorial2"
 length = 2.0
@@ -224,33 +248,6 @@ tracks/1/keys = {
 "values": [Vector2(8, -16), Vector2(8, -16), Vector2(96, -16), Vector2(96, -16)]
 }
 
-[sub_resource type="Animation" id="Animation_h5hd0"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("RMB-icon:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("9_1j7ab")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Player:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(232, 240)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_im87o"]
 _data = {
 "RESET": SubResource("Animation_h5hd0"),
@@ -277,17 +274,6 @@ metadata/_edit_lock_ = true
 [node name="UI" type="CanvasLayer" parent="."]
 layer = -2
 visible = false
-
-[node name="Trajectory" type="Line2D" parent="."]
-visible = false
-width = 5.0
-
-[node name="TrajectoryCollisionChecker" type="CharacterBody2D" parent="Trajectory"]
-collision_layer = 2
-
-[node name="TrajectoryCollisionShape2D" type="CollisionShape2D" parent="Trajectory/TrajectoryCollisionChecker"]
-position = Vector2(-0.25, 0)
-shape = SubResource("CircleShape2D_cqbc2")
 
 [node name="Boss1AreaEnter" type="Area2D" parent="."]
 collision_mask = 2
