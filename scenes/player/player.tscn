@@ -1,14 +1,39 @@
-[gd_scene load_steps=11 format=3 uid="uid://b1xyv0funrvab"]
+[gd_scene load_steps=16 format=3 uid="uid://b1xyv0funrvab"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_bnqte"]
+[ext_resource type="Texture2D" uid="uid://bdvyi4k76mg0e" path="res://assets/player1.png" id="2_i0k67"]
 [ext_resource type="Texture2D" uid="uid://b5in7mkeacraw" path="res://assets/magnetron-pull-animation1.png" id="3_1wn5h"]
 [ext_resource type="Texture2D" uid="uid://5t5f5nvyq8yy" path="res://assets/player.png" id="3_ptyp1"]
+[ext_resource type="Texture2D" uid="uid://cowax0vdwa7wt" path="res://assets/player2.png" id="3_wmy7g"]
 [ext_resource type="Texture2D" uid="uid://b545b3ifuihjb" path="res://assets/magnetron-pull-animation2.png" id="4_7hqo5"]
+[ext_resource type="Texture2D" uid="uid://lmvu5ybseq55" path="res://assets/player3.png" id="4_bgx7h"]
 [ext_resource type="Texture2D" uid="uid://b08s2fxlm51a0" path="res://assets/magnetron-pull-animation3.png" id="5_0oix8"]
 [ext_resource type="Texture2D" uid="uid://cvx41f41824w8" path="res://assets/magnetron-pull-animation4.png" id="6_vq7k1"]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_bvuj8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_i0k67")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_wmy7g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_bgx7h")
+}],
+"loop": true,
+"name": &"space_jump",
+"speed": 10.0
+}]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_4jlkr"]
-radius = 7.2
+radius = 8.25
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ok5og"]
 radius = 290.043
@@ -33,15 +58,19 @@ frame_2/duration = 1.0
 frame_3/texture = ExtResource("6_vq7k1")
 frame_3/duration = 1.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_tjmsf"]
+radius = 7.2
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
-position = Vector2(-2, -8)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_bnqte")
 metadata/_edit_group_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("3_ptyp1")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_bvuj8")
+animation = &"space_jump"
+frame_progress = 0.177199
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.25, 0)
@@ -68,7 +97,7 @@ show_behind_parent = true
 amount = 5
 process_material = SubResource("ParticleProcessMaterial_ojnt8")
 texture = ExtResource("3_ptyp1")
-lifetime = 0.25
+lifetime = 0.2
 
 [node name="Node" type="Node" parent="."]
 
@@ -78,3 +107,6 @@ texture_repeat = 2
 width = 16.0
 texture = SubResource("AnimatedTexture_hvwdy")
 texture_mode = 1
+
+[node name="Node2" type="Node" parent="."]
+

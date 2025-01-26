@@ -32,6 +32,8 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("LMB") and canUseSpaceJump:
 		currentMousePos = get_global_mouse_position()
 	if event.is_action_released("LMB") and canUseSpaceJump:
+		$AnimatedSprite2D.play("space_jump")
+
 		# Can jump only when orbiting
 		if currentMagnetron != null:
 			$GPUParticles2D.emitting = true
@@ -109,6 +111,8 @@ func _physics_process(_delta: float) -> void:
 
 # When player enter magnetron zone, he can use space jump and orbits around the magnetron
 func _on_player_entered_magnetron_zone(magnetron: CharacterBody2D, isCheckpoint: bool) -> void:
+	$AnimatedSprite2D.play("idle")
+
 	# No drawing of pull trajectory if came on orbit
 	$Node/PullTrajectory.clear_points()
 	$Node/PullTrajectory.hide()
