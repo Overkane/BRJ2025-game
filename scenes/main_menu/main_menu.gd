@@ -13,7 +13,7 @@ enum MenuOptions { MAIN_MENU, OPTIONS, CREDITS }
 func _ready() -> void:
 	if OS.has_feature("web"):
 		_quit_button.hide()
-	$OptionsMenu.set_default_audio_settings()
+	$OptionsMenu.set_default_settings()
 
 func _on_play_button_pressed() -> void:
 	get_tree().change_scene_to_packed(WORLD_SCENE)

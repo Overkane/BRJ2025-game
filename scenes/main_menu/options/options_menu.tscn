@@ -51,6 +51,11 @@ text = "Video
 "
 horizontal_alignment = 1
 
+[node name="MouseLockCheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/SplitContainer/VideoSettingsContainer"]
+layout_mode = 2
+tooltip_text = "Determines whether the mouse can go outside of the game screen."
+text = "Mouse Lock"
+
 [node name="AudioSettingsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/SplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -114,6 +119,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Back"
 
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SplitContainer/VideoSettingsContainer/MouseLockCheckBox" to="." method="_on_check_box_pressed"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/SplitContainer/AudioSettingsContainer/MarginContainer/MasterSlider" to="." method="_on_master_slider_value_changed"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/SplitContainer/AudioSettingsContainer/MarginContainer2/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/SplitContainer/AudioSettingsContainer/MarginContainer3/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
