@@ -1,13 +1,11 @@
 extends CharacterBody2D
 
-# Trajectory drawing
-@onready var trajectory: Line2D = $Node2/Trajectory
-const MAX_TRAJECTORY_POINTS = 400
-
 # Player related
-const MAX_SPACE_JUMP_SPEED = 200
+const MAX_SPACE_JUMP_SPEED = 210.
+const MIN_SPACE_JUMP_SPEED = 100.
 var canUseSpaceJump := false
 var currentMousePos := Vector2.ZERO
+var gradient: Gradient
 
 # Magnetron related
 const MAGNETRON_ORBITING_ANGULAR_SPEED := 1.75
@@ -28,9 +26,17 @@ var checkpoint_magnetron_orbitting_direction: float
 func _ready():
 	$GPUParticles2D.emitting = false
 
+	# Color depends on velocity
+	gradient = Gradient.new()
+	gradient.add_point(MIN_SPACE_JUMP_SPEED, Color.GREEN)
+	gradient.add_point((MIN_SPACE_JUMP_SPEED + MAX_SPACE_JUMP_SPEED) / 2, Color.YELLOW)
+	gradient.add_point(MAX_SPACE_JUMP_SPEED, Color.RED)
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("LMB") and canUseSpaceJump:
 		currentMousePos = get_global_mouse_position()
+
+		%DirectionMarker.show()
 	if event.is_action_released("LMB") and canUseSpaceJump:
 		$AnimatedSprite2D.play("space_jump")
 
@@ -42,16 +48,18 @@ func _input(event: InputEvent) -> void:
 		
 		# Calculate jump power based on mouse distance, but can't exceed MAX_SPACE_JUMP_SPEED
 		var lastMousePos = get_global_mouse_position()
-		var velocity_vector = (currentMousePos - lastMousePos)
-		var finite_vector = velocity_vector.normalized() * min(velocity_vector.length(), MAX_SPACE_JUMP_SPEED)
+		var velocity_vector = (global_position - lastMousePos) * 2
+		var finite_vector = velocity_vector.normalized() * clamp(velocity_vector.length(), MIN_SPACE_JUMP_SPEED, MAX_SPACE_JUMP_SPEED)
 		velocity = finite_vector
-	if event.is_action_released("RMB") and $Node/PullTrajectory.visible:
-		$Node/PullTrajectory.clear_points()
-		$Node/PullTrajectory.hide()
 
-func _process(delta):
-	if canUseSpaceJump and Input.is_action_pressed("LMB"):
-		updateTrajectory(delta)
+		%DirectionMarker.hide()
+		print(velocity)
+	if event.is_action_released("RMB"):
+		%DirectionMarker.hide()
+
+func _process(_delta):
+	if %DirectionMarker.visible:
+		updateTrajectory()
 
 func _physics_process(_delta: float) -> void:
 	var oldPosition = global_position
@@ -86,11 +94,6 @@ func _physics_process(_delta: float) -> void:
 			var closestMagnetron = distancesToMagnetrons.get(closestDistance)
 			var directionToMagnetron = global_position.direction_to(closestMagnetron.global_position)
 			velocity = directionToMagnetron * MAGNETRON_SUCKING_SPEED
-			if not $Node/PullTrajectory.visible:
-				$Node/PullTrajectory.show()
-			$Node/PullTrajectory.clear_points()
-			$Node/PullTrajectory.add_point(global_position)
-			$Node/PullTrajectory.add_point(closestMagnetron.global_position)
 
 	# General movement
 	var collision := move_and_collide(velocity * _delta)
@@ -103,10 +106,6 @@ func _physics_process(_delta: float) -> void:
 # When player enter magnetron zone, he can use space jump and orbits around the magnetron
 func _on_player_entered_magnetron_zone(magnetron: CharacterBody2D, isCheckpoint: bool) -> void:
 	$AnimatedSprite2D.play("idle")
-
-	# No drawing of pull trajectory if came on orbit
-	$Node/PullTrajectory.clear_points()
-	$Node/PullTrajectory.hide()
 
 	canUseSpaceJump = true
 	$GPUParticles2D.emitting = false
@@ -147,20 +146,12 @@ func on_death_reset() -> void:
 		print("No checkpoint found")
 
 # Draw trajectory till first collision or MAX_TRAJECTORY_POINTS
-func updateTrajectory(delta) -> void:
-	trajectory.clear_points()
-	var pos := position
-
+func updateTrajectory() -> void:
 	# Same calculation like when mouse input is released
-	var lastMousePos = get_global_mouse_position()
-	var velocity_vector = (currentMousePos - lastMousePos)
-	var finite_vector = velocity_vector.normalized() * min(velocity_vector.length(), MAX_SPACE_JUMP_SPEED)
-	var trajectory_velocity = finite_vector
-
-	for i in range(MAX_TRAJECTORY_POINTS):
-		trajectory.add_point(pos)
-		pos += trajectory_velocity * delta
-
-		var collision = $Node2/Trajectory/TrajectoryCollisionChecker.move_and_collide(trajectory_velocity * delta)
-		if collision:
-			break
+	var lastMousePos: Vector2 = get_global_mouse_position()
+	var velocity_vector: Vector2 = (global_position - lastMousePos) * 2
+	var finite_vector: Vector2 = velocity_vector.normalized() * clamp(velocity_vector.length(), MIN_SPACE_JUMP_SPEED, MAX_SPACE_JUMP_SPEED)
+	
+	%DirectionMarker.rotation = finite_vector.angle()
+	%DirectionMarker.position = position
+	%DirectionMarker.self_modulate = gradient.sample(finite_vector.length())
