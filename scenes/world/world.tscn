@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://cbvomdgkssg2e"]
+[gd_scene load_steps=26 format=4 uid="uid://cbvomdgkssg2e"]
 
 [ext_resource type="Script" path="res://scenes/world/world.gd" id="1_kaq1e"]
 [ext_resource type="PackedScene" uid="uid://df60px4n320j3" path="res://scenes/magnetron/magnetron.tscn" id="2_1ggxs"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://biv3wk6gy02rj" path="res://assets/magnetron.png" id="12_n0sen"]
 [ext_resource type="Texture2D" uid="uid://k3qmf40gucqb" path="res://assets/danger-sign.png" id="13_pofln"]
 [ext_resource type="PackedScene" uid="uid://b8mqkmk1k6cmr" path="res://scenes/misc/boss_blocker.tscn" id="14_10nqd"]
+[ext_resource type="PackedScene" uid="uid://cmkdd8vejyrav" path="res://scenes/main_menu/options/options_menu.tscn" id="15_igmki"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_n0eya"]
 
@@ -263,6 +264,7 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAEAAAAAAAEAAAAAAAEAAAAAAAIAAAAAAAE
 tile_set = SubResource("TileSet_awnfx")
 
 [node name="WorldMusicManager" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("2_exrwh")
 autoplay = true
 bus = &"Music"
@@ -596,4 +598,74 @@ position = Vector2(1712, 224)
 visible = false
 position = Vector2(1152, 224)
 
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="PauseHint" type="Label" parent="HUD"]
+self_modulate = Color(1, 1, 1, 0.607843)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -101.0
+offset_bottom = 17.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 10
+text = "Press 'P' to pause"
+
+[node name="PauseMenu" type="PanelContainer" parent="HUD"]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/PauseMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/PauseMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="ResumeButton" type="Button" parent="HUD/PauseMenu/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="OptionsButton" type="Button" parent="HUD/PauseMenu/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="MainMenuButton" type="Button" parent="HUD/PauseMenu/MarginContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Main menu"
+
+[node name="OptionsMenuContainer" type="ColorRect" parent="HUD"]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+self_modulate = Color(1, 1, 1, 0.784314)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="OptionsMenu" parent="HUD/OptionsMenuContainer" instance=ExtResource("15_igmki")]
+layout_mode = 1
+
 [connection signal="body_entered" from="Boss1/Boss1AreaEnter" to="." method="_on_boss_1_area_enter_body_entered"]
+[connection signal="pressed" from="HUD/PauseMenu/MarginContainer/HBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="HUD/PauseMenu/MarginContainer/HBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="HUD/PauseMenu/MarginContainer/HBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="return_to_main_menu" from="HUD/OptionsMenuContainer/OptionsMenu" to="." method="_on_options_menu_return_to_main_menu"]

@@ -17,6 +17,10 @@ func _ready():
 
 	$Boss1/Boss1BlockerEnter/CollisionShape2D.set_deferred("disabled", true)
 
+func _input(event):
+	if event.is_action_pressed("pause"):
+		togglePauseMenu()
+
 
 # Player entered boss 1 area
 func _on_boss_1_area_enter_body_entered(body:Node2D) -> void:
@@ -71,6 +75,19 @@ func _on_activator_body_entered(_body: Node2D, activator: Area2D) -> void:
 	destroyTileActivators(cellPosition)
 	activator.queue_free()
 
+func _on_resume_button_pressed() -> void:
+	togglePauseMenu()
+
+# Can't implement cuz cross reference
+# func _on_main_menu_button_pressed() -> void:
+# 	pass
+
+func _on_options_button_pressed() -> void:
+	%OptionsMenuContainer.show()
+
+func _on_options_menu_return_to_main_menu() -> void:
+	%OptionsMenuContainer.hide()
+
 
 func destroyTileActivators(cellPosition: Vector2i) -> void:
 	$TileMapLayer.erase_cell(cellPosition)
@@ -82,3 +99,10 @@ func destroyTileActivators(cellPosition: Vector2i) -> void:
 			else:
 				$TileMapLayer.erase_cell(cell)
 	
+func togglePauseMenu() -> void:
+	if not %PauseMenu.visible:
+		get_tree().paused = true
+		%PauseMenu.show()
+	else:
+		get_tree().paused = false
+		%PauseMenu.hide()
