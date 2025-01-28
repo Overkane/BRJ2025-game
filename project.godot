@@ -27,6 +27,13 @@ window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 mouse_cursor/custom=""
 
+[file_customization]
+
+folder_colors={
+"res://assets/": "red",
+"res://scenes/": "orange"
+}
+
 [global_group]
 
 magnetrons=""

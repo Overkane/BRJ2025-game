@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 # Trajectory drawing
-# @onready var trajectory: Line2D = $Trajectory
-const MAX_TRAJECTORY_POINTS = 100
+@onready var trajectory: Line2D = $Node2/Trajectory
+const MAX_TRAJECTORY_POINTS = 400
 
 # Player related
 const MAX_SPACE_JUMP_SPEED = 200
@@ -49,6 +49,10 @@ func _input(event: InputEvent) -> void:
 		$Node/PullTrajectory.clear_points()
 		$Node/PullTrajectory.hide()
 
+func _process(delta):
+	if canUseSpaceJump and Input.is_action_pressed("LMB"):
+		updateTrajectory(delta)
+
 func _physics_process(_delta: float) -> void:
 	var oldPosition = global_position
 
@@ -91,20 +95,7 @@ func _physics_process(_delta: float) -> void:
 	# General movement
 	var collision := move_and_collide(velocity * _delta)
 	if collision:
-		var isPathable = false # If player can pass through object without bouncing
-		# var collider = collision.get_collider()
-		# if collider is TileMapLayer:
-		# 	var cellPosition: Vector2i = collider.local_to_map(collision.get_position())
-		# 	var tileData: TileData = collider.get_cell_tile_data(cellPosition)
-		# 	if tileData:
-		# 		if tileData.get_custom_data("isTrap"):
-		# 			on_death_reset()
-		# 		elif tileData.get_custom_data("isActivator"):
-		# 			destroyActivator(collider, cellPosition)
-		# 			move_and_collide(velocity * _delta)
-		# 			isPathable = true
-		if not isPathable:
-			velocity = velocity.bounce(collision.get_normal()) * 0.9
+		velocity = velocity.bounce(collision.get_normal()) * 0.9
 	
 	rotation = global_position.direction_to(oldPosition).angle()
 
@@ -155,21 +146,21 @@ func on_death_reset() -> void:
 	else:
 		print("No checkpoint found")
 
-# # Draw trajectory till first collision or MAX_TRAJECTORY_POINTS
-# func updateTrajectory(delta) -> void:
-# 	trajectory.clear_points()
-# 	var pos := Vector2.ZERO
+# Draw trajectory till first collision or MAX_TRAJECTORY_POINTS
+func updateTrajectory(delta) -> void:
+	trajectory.clear_points()
+	var pos := position
 
-# 	# Same calculation like when mouse input is released
-# 	var lastMousePos = get_global_mouse_position()
-# 	var velocity_vector = (currentMousePos - lastMousePos)
-# 	var finite_vector = velocity_vector.normalized() * min(velocity_vector.length(), MAX_SPACE_JUMP_SPEED)
-# 	var trajectory_velocity = finite_vector
+	# Same calculation like when mouse input is released
+	var lastMousePos = get_global_mouse_position()
+	var velocity_vector = (currentMousePos - lastMousePos)
+	var finite_vector = velocity_vector.normalized() * min(velocity_vector.length(), MAX_SPACE_JUMP_SPEED)
+	var trajectory_velocity = finite_vector
 
-# 	for i in range(MAX_TRAJECTORY_POINTS):
-# 		trajectory.add_point(pos)
-# 		pos += trajectory_velocity * delta
+	for i in range(MAX_TRAJECTORY_POINTS):
+		trajectory.add_point(pos)
+		pos += trajectory_velocity * delta
 
-# 		var collision = $Trajectory/TrajectoryCollisionChecker.move_and_collide(trajectory_velocity * delta)
-# 		if collision:
-# 			break
+		var collision = $Node2/Trajectory/TrajectoryCollisionChecker.move_and_collide(trajectory_velocity * delta)
+		if collision:
+			break

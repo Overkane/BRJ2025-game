@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8mqkmk1k6cmr"]
+
+[ext_resource type="Texture2D" uid="uid://clbqf2eoxlldj" path="res://assets/boss-blocker.png" id="1_nr65b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rlkjp"]
+size = Vector2(14, 62)
+
+[node name="BossBlocker" type="StaticBody2D"]
+collision_mask = 2
+
+[node name="Boss-blocker" type="Sprite2D" parent="."]
+position = Vector2(8, 8)
+texture = ExtResource("1_nr65b")
+
+[node name="Boss-blocker2" type="Sprite2D" parent="."]
+position = Vector2(8, 24)
+texture = ExtResource("1_nr65b")
+
+[node name="Boss-blocker3" type="Sprite2D" parent="."]
+position = Vector2(8, 40)
+texture = ExtResource("1_nr65b")
+
+[node name="Boss-blocker4" type="Sprite2D" parent="."]
+position = Vector2(8, 56)
+texture = ExtResource("1_nr65b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 32)
+shape = SubResource("RectangleShape2D_rlkjp")

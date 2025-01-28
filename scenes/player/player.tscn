@@ -1,9 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://b1xyv0funrvab"]
+[gd_scene load_steps=15 format=3 uid="uid://b1xyv0funrvab"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_bnqte"]
 [ext_resource type="Texture2D" uid="uid://bdvyi4k76mg0e" path="res://assets/player1.png" id="2_i0k67"]
 [ext_resource type="Texture2D" uid="uid://b5in7mkeacraw" path="res://assets/magnetron-pull-animation1.png" id="3_1wn5h"]
-[ext_resource type="Texture2D" uid="uid://5t5f5nvyq8yy" path="res://assets/player.png" id="3_ptyp1"]
 [ext_resource type="Texture2D" uid="uid://cowax0vdwa7wt" path="res://assets/player2.png" id="3_wmy7g"]
 [ext_resource type="Texture2D" uid="uid://b545b3ifuihjb" path="res://assets/magnetron-pull-animation2.png" id="4_7hqo5"]
 [ext_resource type="Texture2D" uid="uid://lmvu5ybseq55" path="res://assets/player3.png" id="4_bgx7h"]
@@ -70,7 +69,7 @@ metadata/_edit_group_ = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_bvuj8")
 animation = &"space_jump"
-frame_progress = 0.177199
+frame_progress = 0.70532
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.25, 0)
@@ -96,7 +95,7 @@ self_modulate = Color(1, 1, 1, 0.137255)
 show_behind_parent = true
 amount = 5
 process_material = SubResource("ParticleProcessMaterial_ojnt8")
-texture = ExtResource("3_ptyp1")
+texture = ExtResource("2_i0k67")
 lifetime = 0.2
 
 [node name="Node" type="Node" parent="."]
@@ -110,3 +109,13 @@ texture_mode = 1
 
 [node name="Node2" type="Node" parent="."]
 
+[node name="Trajectory" type="Line2D" parent="Node2"]
+modulate = Color(1, 1, 1, 0.254902)
+width = 1.0
+
+[node name="TrajectoryCollisionChecker" type="CharacterBody2D" parent="Node2/Trajectory"]
+collision_layer = 0
+
+[node name="TrajectoryCollisionShape2D" type="CollisionShape2D" parent="Node2/Trajectory/TrajectoryCollisionChecker"]
+position = Vector2(-0.25, 0)
+shape = SubResource("CircleShape2D_tjmsf")

@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://dhdtidkl8xuat" path="res://assets/projectile.png" id="1_kwhbf"]
 [ext_resource type="Script" path="res://scenes/projectile/projectile.gd" id="1_r64wo"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_gtfts"]
-radius = 3.16228
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tqwar"]
+size = Vector2(12, 4)
 
 [node name="Projectile" type="Area2D"]
 collision_layer = 8
@@ -15,4 +15,4 @@ script = ExtResource("1_r64wo")
 texture = ExtResource("1_kwhbf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_gtfts")
+shape = SubResource("RectangleShape2D_tqwar")
