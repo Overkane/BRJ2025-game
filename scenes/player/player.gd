@@ -42,9 +42,10 @@ func _input(event: InputEvent) -> void:
 
 		# Can jump only when orbiting
 		if currentMagnetron != null:
-			$GPUParticles2D.emitting = true
-			canUseSpaceJump = false
 			currentMagnetron = null
+		
+		canUseSpaceJump = false
+		$GPUParticles2D.emitting = true
 		
 		# Calculate jump power based on mouse distance, but can't exceed MAX_SPACE_JUMP_SPEED
 		var lastMousePos = get_global_mouse_position()
@@ -122,6 +123,8 @@ func _on_player_entered_magnetron_zone(magnetron: CharacterBody2D, isCheckpoint:
 	if isCheckpoint:
 		activateCheckpoint(magnetron)
 
+func _on_player_bonus_jump_pickup() -> void:
+	canUseSpaceJump = true
 
 func activateCheckpoint(magnetron: CharacterBody2D) -> void:
 	if magnetronCheckpoint != null:

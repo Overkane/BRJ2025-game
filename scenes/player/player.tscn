@@ -64,14 +64,6 @@ collision_mask = 5
 script = ExtResource("1_bnqte")
 metadata/_edit_group_ = true
 
-[node name="Node2" type="Node" parent="."]
-
-[node name="DirectionMarker" type="Sprite2D" parent="Node2"]
-unique_name_in_owner = true
-visible = false
-z_index = -1
-texture = ExtResource("2_i2yq5")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_bvuj8")
 animation = &"space_jump"
@@ -103,6 +95,14 @@ amount = 5
 process_material = SubResource("ParticleProcessMaterial_ojnt8")
 texture = ExtResource("2_i0k67")
 lifetime = 0.2
+
+[node name="Node2" type="Node" parent="."]
+
+[node name="DirectionMarker" type="Sprite2D" parent="Node2"]
+unique_name_in_owner = true
+visible = false
+z_index = -1
+texture = ExtResource("2_i2yq5")
 
 [node name="Node" type="Node" parent="."]
 
