@@ -137,6 +137,11 @@ func _on_player_entered_magnetron_zone(magnetron: CharacterBody2D, isCheckpoint:
 
 func _on_player_bonus_jump_pickup() -> void:
 	canUseSpaceJump = true
+	Engine.time_scale = 0.15
+	AudioServer.playback_speed_scale = 0.5
+	await get_tree().create_timer(Engine.time_scale * 2).timeout
+	Engine.time_scale = 1.
+	AudioServer.playback_speed_scale = 1.
 
 func activateCheckpoint(magnetron: CharacterBody2D) -> void:
 	if magnetronCheckpoint != null:

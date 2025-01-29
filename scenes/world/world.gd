@@ -16,6 +16,7 @@ func _ready():
 		trap.body_entered.connect(_on_player_hit)
 
 	$Boss1/Boss1BlockerEnter/CollisionShape2D.set_deferred("disabled", true)
+	$Boss2/Boss2BlockerEnter/CollisionShape2D.set_deferred("disabled", true)
 
 func _input(event):
 	if event.is_action_pressed("pause"):
@@ -44,8 +45,10 @@ func _on_boss_defeat(boss: CharacterBody2D) -> void:
 		$Boss1/Boss1BlockerExit.queue_free()
 		boss.queue_free()
 		isBoss1Defeated = true
-	# elif boss is Boss2:
-	# 	$Boss2/Boss2BlockerExit.queue_free()
+	elif boss is Boss2:
+		$Boss2/Boss2BlockerExit.queue_free()
+		boss.queue_free()
+		isBoss2Defeated = true
 	# elif boss is Boss3:
 	# 	$Boss3/Boss3BlockerExit.queue_free()
 
@@ -57,8 +60,11 @@ func _on_boss_reset(boss: CharacterBody2D) -> void:
 		$Boss1/Boss1BlockerEnter/CollisionShape2D.set_deferred("disabled", true)
 
 		$Player.on_death_reset()
-	# elif boss is Boss2:
-	# 	$Boss2/Boss2BlockerExit.hide()
+	elif boss is Boss2:
+		$Boss2/Boss2BlockerEnter.hide()
+		$Boss2/Boss2BlockerEnter/CollisionShape2D.set_deferred("disabled", true)
+
+		$Player.on_death_reset()
 	# elif boss is Boss3:
 	# 	$Boss3/Boss3BlockerExit.hide()
 
@@ -76,6 +82,11 @@ func _on_activator_body_entered(_body: Node2D, activator: Area2D) -> void:
 	activator.queue_free()
 
 func _on_resume_button_pressed() -> void:
+	togglePauseMenu()
+
+# Kills the player
+func _on_reset_button_pressed() -> void:
+	_on_player_hit($Player)
 	togglePauseMenu()
 
 # Can't implement cuz cross reference

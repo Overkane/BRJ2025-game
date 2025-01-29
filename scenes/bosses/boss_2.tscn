@@ -1,18 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://c0dvogempwjhr"]
+[gd_scene load_steps=10 format=3 uid="uid://bcglgus2ejd77"]
 
-[ext_resource type="Script" path="res://scenes/bosses/boss_1.gd" id="1_vh6w2"]
-[ext_resource type="Texture2D" uid="uid://la2yonaly26u" path="res://assets/boss1.png" id="2_0ufpg"]
-[ext_resource type="PackedScene" uid="uid://bv2mryk3m0kc2" path="res://scenes/activator/activator.tscn" id="3_1803v"]
-[ext_resource type="Texture2D" uid="uid://dr5atr7oyr0yd" path="res://assets/boss2.png" id="3_ukeox"]
-[ext_resource type="Texture2D" uid="uid://dpociqxdp4658" path="res://assets/boss3.png" id="4_vg18w"]
-[ext_resource type="Texture2D" uid="uid://6rct7aptmqme" path="res://assets/boss4.png" id="5_6414q"]
-[ext_resource type="Texture2D" uid="uid://dhh734mxgisal" path="res://assets/boss5.png" id="6_nkuaj"]
+[ext_resource type="Script" path="res://scenes/bosses/boss_2.gd" id="1_0r0hk"]
+[ext_resource type="Texture2D" uid="uid://la2yonaly26u" path="res://assets/boss1.png" id="2_3p5ru"]
+[ext_resource type="Texture2D" uid="uid://dr5atr7oyr0yd" path="res://assets/boss2.png" id="3_ob1w6"]
+[ext_resource type="Texture2D" uid="uid://dpociqxdp4658" path="res://assets/boss3.png" id="4_a8mfp"]
+[ext_resource type="Texture2D" uid="uid://6rct7aptmqme" path="res://assets/boss4.png" id="5_pmivx"]
+[ext_resource type="Texture2D" uid="uid://dhh734mxgisal" path="res://assets/boss5.png" id="6_a6os3"]
+[ext_resource type="PackedScene" uid="uid://bv2mryk3m0kc2" path="res://scenes/activator/activator.tscn" id="7_2tikl"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bjgeg"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_0ufpg")
+"texture": ExtResource("2_3p5ru")
 }],
 "loop": false,
 "name": &"idle",
@@ -20,29 +20,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_ukeox")
+"texture": ExtResource("3_ob1w6")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_vg18w")
+"texture": ExtResource("4_a8mfp")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_6414q")
+"texture": ExtResource("5_pmivx")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_nkuaj")
+"texture": ExtResource("6_a6os3")
 }],
 "loop": false,
 "name": &"shoot",
 "speed": 1.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p3isx"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xnt27"]
 size = Vector2(3, 102)
 
-[node name="Boss1" type="CharacterBody2D"]
+[node name="Boss2" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 2
-script = ExtResource("1_vh6w2")
+script = ExtResource("1_0r0hk")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -50,15 +50,15 @@ scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_bjgeg")
 animation = &"shoot"
 
-[node name="WeakPoint3" parent="." instance=ExtResource("3_1803v")]
+[node name="WeakPoint3" parent="." instance=ExtResource("7_2tikl")]
 position = Vector2(-22, -22)
 rotation = 5.38687
 
-[node name="WeakPoint1" parent="." instance=ExtResource("3_1803v")]
+[node name="WeakPoint1" parent="." instance=ExtResource("7_2tikl")]
 position = Vector2(24, -22)
 rotation = 0.805309
 
-[node name="WeakPoint2" parent="." instance=ExtResource("3_1803v")]
+[node name="WeakPoint2" parent="." instance=ExtResource("7_2tikl")]
 position = Vector2(0, 34)
 rotation = 3.14159
 
@@ -67,7 +67,7 @@ rotation = 3.14159
 [node name="BlockingCollision" type="CollisionPolygon2D" parent="."]
 scale = Vector2(3, 3)
 build_mode = 1
-polygon = PackedVector2Array(2, -9, -2, -9, -2, -8, -4, -8, -4, -7, -5, -7, -5, -6, -6, -6, -6, -5, -7, -5, -7, -4, -8, -4, -8, -2, -20, -2, -24, -6.66667, -24, 6.66667, -20, 2, -8, 2, -8, 4, -7, 4, -7, 5, -6, 5, -6, 6, -5, 6, -5, 7, -4, 7, -4, 8, -2, 8, -2, 9, 2, 9, 2, 8, 4, 8, 4, 7, 5, 7, 5, 6, 6, 6, 6, 5, 7, 5, 7, 4, 8, 4, 8, 2, 20, 2, 24, 6.66667, 24, -6.66667, 20, -2, 8, -2, 8, -4, 7, -4, 7, -5, 6, -5, 6, -6, 5, -6, 5, -7, 4, -7, 4, -8, 2, -8)
+polygon = PackedVector2Array(2, -9, -2, -9, -2, -8, -4, -8, -4, -7, -5, -7, -5, -6, -6, -6, -6, -5, -7, -5, -7, -4, -8, -4, -8, -2, -20, -2, -24, -6.33333, -24, 6.33333, -20, 2, -8, 2, -8, 4, -7, 4, -7, 5, -6, 5, -6, 6, -5, 6, -5, 7, -4, 7, -4, 8, -2, 8, -2, 9, 2, 9, 2, 8, 4, 8, 4, 7, 5, 7, 5, 6, 6, 6, 6, 5, 7, 5, 7, 4, 8, 4, 8, 2, 20, 2, 24, 6, 24, -6, 20, -2, 8, -2, 8, -4, 7, -4, 7, -5, 6, -5, 6, -6, 5, -6, 5, -7, 4, -7, 4, -8, 2, -8)
 
 [node name="DamageArea" type="Area2D" parent="."]
 collision_layer = 4
@@ -85,11 +85,11 @@ polygon = PackedVector2Array(25, 17, 25, 16, 26, 16, 26, 14, 27, 14, 27, 12, 28,
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-73.5, 0)
-shape = SubResource("RectangleShape2D_p3isx")
+shape = SubResource("RectangleShape2D_xnt27")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(73, 0)
-shape = SubResource("RectangleShape2D_p3isx")
+shape = SubResource("RectangleShape2D_xnt27")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
