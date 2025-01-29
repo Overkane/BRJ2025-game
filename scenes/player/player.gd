@@ -57,6 +57,9 @@ func _input(event: InputEvent) -> void:
 		print(velocity)
 	if event.is_action_released("RMB"):
 		%DirectionMarker.hide()
+		if $Node/PullTrajectory.visible:
+			$Node/PullTrajectory.clear_points()
+			$Node/PullTrajectory.hide()
 
 func _process(_delta):
 	if %DirectionMarker.visible:
@@ -95,6 +98,11 @@ func _physics_process(_delta: float) -> void:
 			var closestMagnetron = distancesToMagnetrons.get(closestDistance)
 			var directionToMagnetron = global_position.direction_to(closestMagnetron.global_position)
 			velocity = directionToMagnetron * MAGNETRON_SUCKING_SPEED
+			if not $Node/PullTrajectory.visible:
+				$Node/PullTrajectory.show()
+			$Node/PullTrajectory.clear_points()
+			$Node/PullTrajectory.add_point(global_position)
+			$Node/PullTrajectory.add_point(closestMagnetron.global_position)
 
 	# General movement
 	var collision := move_and_collide(velocity * _delta)
@@ -107,6 +115,10 @@ func _physics_process(_delta: float) -> void:
 # When player enter magnetron zone, he can use space jump and orbits around the magnetron
 func _on_player_entered_magnetron_zone(magnetron: CharacterBody2D, isCheckpoint: bool) -> void:
 	$AnimatedSprite2D.play("idle")
+
+	# No drawing of pull trajectory if came on orbit
+	$Node/PullTrajectory.clear_points()
+	$Node/PullTrajectory.hide()
 
 	canUseSpaceJump = true
 	$GPUParticles2D.emitting = false
