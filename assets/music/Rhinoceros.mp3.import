@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/Rhinoceros.mp3-4208e6410e5dc352ca449472ee9e49
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

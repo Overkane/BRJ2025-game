@@ -21,7 +21,7 @@ grow_vertical = 2
 
 [node name="HeaderText" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 16
 text = "Credits"
 horizontal_alignment = 1
 uppercase = true
@@ -39,14 +39,14 @@ alignment = 1
 [node name="CreditsText" type="RichTextLabel" parent="VBoxContainer/Body/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/bold_italics_font_size = 8
-theme_override_font_sizes/italics_font_size = 8
-theme_override_font_sizes/mono_font_size = 8
-theme_override_font_sizes/normal_font_size = 8
-theme_override_font_sizes/bold_font_size = 8
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
 bbcode_enabled = true
 text = "[center]
-Made by ХХХ
+Made by Overkane
 
 
 [b]Special Thanks[/b]
@@ -56,8 +56,8 @@ Made by ХХХ
 Licensed under Creative Commons: By Attribution 4.0 License
 http://creativecommons.org/licenses/by/4.0/
 
-[b]Boss 1 music[/b]
-Ropocolypse 2 Kevin MacLeod (incompetech.com)
+[b]Gameplay music[/b]
+\"Rhinoceros\" Kevin MacLeod (incompetech.com)
 Licensed under Creative Commons: By Attribution 3.0 License
 http://creativecommons.org/licenses/by/3.0/
 
@@ -69,7 +69,7 @@ fit_content = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 12
 text = "Back
 "
 

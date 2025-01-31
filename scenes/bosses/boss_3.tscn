@@ -1,0 +1,110 @@
+[gd_scene load_steps=13 format=3 uid="uid://cu2yt2tmv713q"]
+
+[ext_resource type="Script" path="res://scenes/bosses/boss_3.gd" id="1_5x2gb"]
+[ext_resource type="Texture2D" uid="uid://la2yonaly26u" path="res://assets/boss1.png" id="2_4aopa"]
+[ext_resource type="Texture2D" uid="uid://dr5atr7oyr0yd" path="res://assets/boss2.png" id="3_skyy6"]
+[ext_resource type="Texture2D" uid="uid://dpociqxdp4658" path="res://assets/boss3.png" id="4_y0u36"]
+[ext_resource type="Texture2D" uid="uid://6rct7aptmqme" path="res://assets/boss4.png" id="5_l3c4k"]
+[ext_resource type="Texture2D" uid="uid://dhh734mxgisal" path="res://assets/boss5.png" id="6_tdyuc"]
+[ext_resource type="PackedScene" uid="uid://bv2mryk3m0kc2" path="res://scenes/activator/activator.tscn" id="7_wr3xa"]
+[ext_resource type="Texture2D" uid="uid://cgn1xjypxa0jk" path="res://assets/boss2A.png" id="8_rs5wf"]
+[ext_resource type="Texture2D" uid="uid://c2hjua03m2ysv" path="res://assets/boss2B.png" id="9_60neh"]
+[ext_resource type="Texture2D" uid="uid://c7gpdduihmxbs" path="res://assets/Boss2Blockers.png" id="10_x8pgb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bjgeg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_4aopa")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_skyy6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_y0u36")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_l3c4k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_tdyuc")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 1.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xnt27"]
+size = Vector2(3, 102)
+
+[node name="Boss3" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_5x2gb")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_bjgeg")
+animation = &"shoot"
+
+[node name="WeakPoint3" parent="." instance=ExtResource("7_wr3xa")]
+position = Vector2(-22, -22)
+rotation = 5.38687
+
+[node name="WeakPoint1" parent="." instance=ExtResource("7_wr3xa")]
+position = Vector2(24, -22)
+rotation = 0.805309
+
+[node name="WeakPoint2" parent="." instance=ExtResource("7_wr3xa")]
+position = Vector2(0, 34)
+rotation = 3.14159
+
+[node name="ShootPoint" type="Marker2D" parent="."]
+
+[node name="BlockingCollision" type="CollisionPolygon2D" parent="."]
+scale = Vector2(3, 3)
+build_mode = 1
+polygon = PackedVector2Array(2, -9, -2, -9, -2, -8, -4, -8, -4, -7, -5, -7, -5, -6, -6, -6, -6, -5, -7, -5, -7, -4, -8, -4, -8, -2, -20, -2, -24, -6.33333, -24, 6.33333, -20, 2, -8, 2, -8, 4, -7, 4, -7, 5, -6, 5, -6, 6, -5, 6, -5, 7, -4, 7, -4, 8, -2, 8, -2, 9, 2, 9, 2, 8, 4, 8, 4, 7, 5, 7, 5, 6, 6, 6, 6, 5, 7, 5, 7, 4, 8, 4, 8, 2, 20, 2, 24, 6, 24, -6, 20, -2, 8, -2, 8, -4, 7, -4, 7, -5, 6, -5, 6, -6, 5, -6, 5, -7, 4, -7, 4, -8, 2, -8)
+
+[node name="DamageArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="DamaginCollisionLeft" type="CollisionPolygon2D" parent="DamageArea"]
+scale = Vector2(3, 3)
+build_mode = 1
+polygon = PackedVector2Array(-25, -17, -25, -16, -26, -16, -26, -14, -27, -14, -27, -12, -28, -12, -28, -10, -29, -10, -29, -7, -30, -7, -30, -4, -31, -4, -31, 4, -30, 4, -30, 7, -29, 7, -29, 10, -28, 10, -28, 12, -27, 12, -27, 14, -26, 14, -26, 16, -25, 16, -25, 17)
+
+[node name="DamaginCollisionRight" type="CollisionPolygon2D" parent="DamageArea"]
+scale = Vector2(3, 3)
+build_mode = 1
+polygon = PackedVector2Array(25, 17, 25, 16, 26, 16, 26, 14, 27, 14, 27, 12, 28, 12, 28, 10, 29, 10, 29, 7, 30, 7, 30, 4, 31, 4, 31, -4, 30, -4, 30, -7, 29, -7, 29, -10, 28, -10, 28, -12, 27, -12, 27, -14, 26, -14, 26, -16, 25, -16, 25, -17)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-73.5, 0)
+shape = SubResource("RectangleShape2D_xnt27")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(73, 0)
+shape = SubResource("RectangleShape2D_xnt27")
+
+[node name="Boss2a" type="Sprite2D" parent="."]
+position = Vector2(-88, 107)
+texture = ExtResource("8_rs5wf")
+
+[node name="Boss2b" type="Sprite2D" parent="."]
+position = Vector2(71, 107)
+texture = ExtResource("9_60neh")
+
+[node name="Boss2Blockers" type="Sprite2D" parent="."]
+position = Vector2(-88, 107)
+texture = ExtResource("10_x8pgb")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]

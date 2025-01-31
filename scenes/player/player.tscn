@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b1xyv0funrvab"]
+[gd_scene load_steps=14 format=3 uid="uid://b1xyv0funrvab"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_bnqte"]
 [ext_resource type="Texture2D" uid="uid://bdvyi4k76mg0e" path="res://assets/player1.png" id="2_i0k67"]
@@ -37,15 +37,6 @@ radius = 8.25
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ok5og"]
 radius = 290.043
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ojnt8"]
-particle_flag_disable_z = true
-angle_min = 1.07288e-05
-angle_max = 1.07288e-05
-spread = 0.0
-initial_velocity_min = 152.17
-initial_velocity_max = 152.17
-gravity = Vector3(0, 0, 0)
 
 [sub_resource type="AnimatedTexture" id="AnimatedTexture_hvwdy"]
 frames = 4
@@ -88,13 +79,17 @@ drag_top_margin = 0.1
 drag_right_margin = 0.1
 drag_bottom_margin = 0.1
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.137255)
 show_behind_parent = true
-amount = 5
-process_material = SubResource("ParticleProcessMaterial_ojnt8")
-texture = ExtResource("2_i0k67")
+amount = 4
 lifetime = 0.2
+texture = ExtResource("2_i0k67")
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+angular_velocity_max = 471.11
 
 [node name="Node2" type="Node" parent="."]
 

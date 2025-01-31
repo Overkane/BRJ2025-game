@@ -1,43 +1,131 @@
-[gd_scene load_steps=10 format=3 uid="uid://bcglgus2ejd77"]
+[gd_scene load_steps=29 format=3 uid="uid://bcglgus2ejd77"]
 
 [ext_resource type="Script" path="res://scenes/bosses/boss_2.gd" id="1_0r0hk"]
-[ext_resource type="Texture2D" uid="uid://la2yonaly26u" path="res://assets/boss1.png" id="2_3p5ru"]
-[ext_resource type="Texture2D" uid="uid://dr5atr7oyr0yd" path="res://assets/boss2.png" id="3_ob1w6"]
-[ext_resource type="Texture2D" uid="uid://dpociqxdp4658" path="res://assets/boss3.png" id="4_a8mfp"]
-[ext_resource type="Texture2D" uid="uid://6rct7aptmqme" path="res://assets/boss4.png" id="5_pmivx"]
-[ext_resource type="Texture2D" uid="uid://dhh734mxgisal" path="res://assets/boss5.png" id="6_a6os3"]
+[ext_resource type="Texture2D" uid="uid://cki3nqp0of8vf" path="res://assets/boss2A1.png" id="2_1pttg"]
+[ext_resource type="Texture2D" uid="uid://cieaaafi243kq" path="res://assets/boss2A2.png" id="3_msu1k"]
+[ext_resource type="Texture2D" uid="uid://baox38qmq86e0" path="res://assets/boss2A3.png" id="4_o4squ"]
+[ext_resource type="Texture2D" uid="uid://wxaq0cbguf1a" path="res://assets/boss2A4.png" id="5_ema42"]
+[ext_resource type="Texture2D" uid="uid://do4nl1elsbi67" path="res://assets/boss2B1.png" id="5_hr0eu"]
+[ext_resource type="Texture2D" uid="uid://ck3dtyji84let" path="res://assets/boss2B2.png" id="6_lbr7x"]
+[ext_resource type="Texture2D" uid="uid://c6k3vtcmb55xv" path="res://assets/boss2A5.png" id="6_xwiec"]
 [ext_resource type="PackedScene" uid="uid://bv2mryk3m0kc2" path="res://scenes/activator/activator.tscn" id="7_2tikl"]
+[ext_resource type="Texture2D" uid="uid://dwwvmhnuwc2r5" path="res://assets/boss2B3.png" id="7_f6qgx"]
+[ext_resource type="Texture2D" uid="uid://f8elfqvlw4n3" path="res://assets/boss2A6.png" id="7_yklp1"]
+[ext_resource type="Texture2D" uid="uid://ce7h2r20xj76l" path="res://assets/boss2A7.png" id="8_7n616"]
+[ext_resource type="Texture2D" uid="uid://3qna88lyliuo" path="res://assets/boss2B4.png" id="8_tlnxa"]
+[ext_resource type="Texture2D" uid="uid://dt4h8tiht145s" path="res://assets/boss2A8.png" id="9_eobfb"]
+[ext_resource type="Texture2D" uid="uid://c20jpa4kstq4k" path="res://assets/boss2B9.png" id="9_fumop"]
+[ext_resource type="Texture2D" uid="uid://c7gpdduihmxbs" path="res://assets/Boss2Blockers.png" id="10_crrqx"]
+[ext_resource type="Texture2D" uid="uid://bbp53t754h5u4" path="res://assets/boss2B10.png" id="10_wr6rj"]
+[ext_resource type="Texture2D" uid="uid://b3w8kjckaprni" path="res://assets/boss2B11.png" id="11_fxihi"]
+[ext_resource type="Texture2D" uid="uid://nelvein4jlts" path="res://assets/boss2B12.png" id="12_uv8ro"]
+[ext_resource type="Texture2D" uid="uid://dsf7mmopfpni" path="res://assets/boss2B5.png" id="13_c0j8e"]
+[ext_resource type="Texture2D" uid="uid://p2fbpig2iya5" path="res://assets/boss2B6.png" id="14_fybqc"]
+[ext_resource type="Texture2D" uid="uid://8ns8d46jo2vm" path="res://assets/boss2B7.png" id="15_b0ln2"]
+[ext_resource type="Texture2D" uid="uid://b4ch3lsjpcrgm" path="res://assets/boss2B8.png" id="16_fn3fu"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_bjgeg"]
+[sub_resource type="Curve2D" id="Curve2D_srvmv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -156, 0, 0, 0, 0, 0, 0, -35.5784, 0, 0, 0, 0, 156, 0, 0, 0, 0, 0, 0, 35.5784, 0, 0, 0, 0, -156, 0)
+}
+point_count = 5
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_npkck"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_3p5ru")
+"texture": ExtResource("2_1pttg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_msu1k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_o4squ")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ema42")
 }],
 "loop": false,
-"name": &"idle",
-"speed": 5.0
+"name": &"rocket_launcher",
+"speed": 1.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_ob1w6")
+"texture": ExtResource("6_xwiec")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_a8mfp")
+"texture": ExtResource("7_yklp1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_pmivx")
+"texture": ExtResource("8_7n616")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_a6os3")
+"texture": ExtResource("9_eobfb")
 }],
 "loop": false,
-"name": &"shoot",
+"name": &"shotgun",
 "speed": 1.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xnt27"]
-size = Vector2(3, 102)
+[sub_resource type="CircleShape2D" id="CircleShape2D_vsxsf"]
+radius = 16.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7q1k8"]
+size = Vector2(24, 4)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_enq4d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_hr0eu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_lbr7x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_f6qgx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_tlnxa")
+}],
+"loop": false,
+"name": &"laserALL",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_fumop")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_wr6rj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_fxihi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_uv8ro")
+}],
+"loop": false,
+"name": &"laserTLBR",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_c0j8e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_fybqc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_b0ln2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_fn3fu")
+}],
+"loop": false,
+"name": &"laserTRBL",
+"speed": 1.0
+}]
 
 [node name="Boss2" type="CharacterBody2D"]
 collision_layer = 4
@@ -45,51 +133,128 @@ collision_mask = 2
 script = ExtResource("1_0r0hk")
 metadata/_edit_group_ = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(3, 3)
-sprite_frames = SubResource("SpriteFrames_bjgeg")
-animation = &"shoot"
+[node name="Path2D" type="Path2D" parent="."]
+scale = Vector2(1.23077, 5.39654)
+curve = SubResource("Curve2D_srvmv")
 
-[node name="WeakPoint3" parent="." instance=ExtResource("7_2tikl")]
-position = Vector2(-22, -22)
-rotation = 5.38687
+[node name="PathFollowBossA" type="PathFollow2D" parent="Path2D"]
+position = Vector2(0.000327284, -35.5784)
+rotation = -0.224211
+progress = 160.006
+rotates = false
 
-[node name="WeakPoint1" parent="." instance=ExtResource("7_2tikl")]
-position = Vector2(24, -22)
-rotation = 0.805309
+[node name="Boss2A" type="CharacterBody2D" parent="Path2D/PathFollowBossA"]
+rotation = 0.224232
+scale = Vector2(0.8125, 0.185304)
+collision_layer = 4
+collision_mask = 0
+metadata/_edit_group_ = true
 
-[node name="WeakPoint2" parent="." instance=ExtResource("7_2tikl")]
-position = Vector2(0, 34)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Path2D/PathFollowBossA/Boss2A"]
+sprite_frames = SubResource("SpriteFrames_npkck")
+animation = &"shotgun"
+
+[node name="WeakPointA1" parent="Path2D/PathFollowBossA/Boss2A" instance=ExtResource("7_2tikl")]
+position = Vector2(0, -22)
+
+[node name="WeakPointA2" parent="Path2D/PathFollowBossA/Boss2A" instance=ExtResource("7_2tikl")]
+position = Vector2(0, 21)
 rotation = 3.14159
 
-[node name="ShootPoint" type="Marker2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollowBossA/Boss2A"]
+shape = SubResource("CircleShape2D_vsxsf")
 
-[node name="BlockingCollision" type="CollisionPolygon2D" parent="."]
-scale = Vector2(3, 3)
-build_mode = 1
-polygon = PackedVector2Array(2, -9, -2, -9, -2, -8, -4, -8, -4, -7, -5, -7, -5, -6, -6, -6, -6, -5, -7, -5, -7, -4, -8, -4, -8, -2, -20, -2, -24, -6.33333, -24, 6.33333, -20, 2, -8, 2, -8, 4, -7, 4, -7, 5, -6, 5, -6, 6, -5, 6, -5, 7, -4, 7, -4, 8, -2, 8, -2, 9, 2, 9, 2, 8, 4, 8, 4, 7, 5, 7, 5, 6, 6, 6, 6, 5, 7, 5, 7, 4, 8, 4, 8, 2, 20, 2, 24, 6, 24, -6, 20, -2, 8, -2, 8, -4, 7, -4, 7, -5, 6, -5, 6, -6, 5, -6, 5, -7, 4, -7, 4, -8, 2, -8)
+[node name="BlockersA" type="StaticBody2D" parent="Path2D/PathFollowBossA/Boss2A"]
+editor_description = "Disabled for now, cuz don't let boss projectiles to go through"
+visible = false
+rotation = 1.5708
+scale = Vector2(1.5, 1.5)
+skew = 8.69036e-05
+collision_layer = 0
+collision_mask = 0
 
-[node name="DamageArea" type="Area2D" parent="."]
+[node name="CollisionShape2DLeft" type="CollisionShape2D" parent="Path2D/PathFollowBossA/Boss2A/BlockersA"]
+position = Vector2(-30, 3.05176e-05)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_7q1k8")
+disabled = true
+
+[node name="CollisionShape2DRight" type="CollisionShape2D" parent="Path2D/PathFollowBossA/Boss2A/BlockersA"]
+position = Vector2(30, 3.05166e-05)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_7q1k8")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Path2D/PathFollowBossA/Boss2A/BlockersA"]
+texture = ExtResource("10_crrqx")
+
+[node name="ShotPointShotgun" type="Marker2D" parent="Path2D/PathFollowBossA/Boss2A"]
+position = Vector2(-23.0004, 0.00237611)
+
+[node name="ShotPointRocketLauncher" type="Marker2D" parent="Path2D/PathFollowBossA/Boss2A"]
+position = Vector2(21.9996, -0.00176521)
+
+[node name="PathFollowBossB" type="PathFollow2D" parent="Path2D"]
+position = Vector2(-8.92604e-05, 35.5784)
+rotation = 2.91744
+progress = 480.017
+rotates = false
+
+[node name="Boss2B" type="CharacterBody2D" parent="Path2D/PathFollowBossB"]
+rotation = 0.224232
+scale = Vector2(0.8125, 0.185304)
 collision_layer = 4
-collision_mask = 2
+collision_mask = 0
+metadata/_edit_group_ = true
 
-[node name="DamaginCollisionLeft" type="CollisionPolygon2D" parent="DamageArea"]
-scale = Vector2(3, 3)
-build_mode = 1
-polygon = PackedVector2Array(-25, -17, -25, -16, -26, -16, -26, -14, -27, -14, -27, -12, -28, -12, -28, -10, -29, -10, -29, -7, -30, -7, -30, -4, -31, -4, -31, 4, -30, 4, -30, 7, -29, 7, -29, 10, -28, 10, -28, 12, -27, 12, -27, 14, -26, 14, -26, 16, -25, 16, -25, 17)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Path2D/PathFollowBossB/Boss2B"]
+sprite_frames = SubResource("SpriteFrames_enq4d")
+animation = &"laserALL"
 
-[node name="DamaginCollisionRight" type="CollisionPolygon2D" parent="DamageArea"]
-scale = Vector2(3, 3)
-build_mode = 1
-polygon = PackedVector2Array(25, 17, 25, 16, 26, 16, 26, 14, 27, 14, 27, 12, 28, 12, 28, 10, 29, 10, 29, 7, 30, 7, 30, 4, 31, 4, 31, -4, 30, -4, 30, -7, 29, -7, 29, -10, 28, -10, 28, -12, 27, -12, 27, -14, 26, -14, 26, -16, 25, -16, 25, -17)
+[node name="WeakPointB1" parent="Path2D/PathFollowBossB/Boss2B" instance=ExtResource("7_2tikl")]
+position = Vector2(0, 21)
+rotation = 3.14159
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-73.5, 0)
-shape = SubResource("RectangleShape2D_xnt27")
+[node name="WeakPointB2" parent="Path2D/PathFollowBossB/Boss2B" instance=ExtResource("7_2tikl")]
+position = Vector2(0, -21)
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(73, 0)
-shape = SubResource("RectangleShape2D_xnt27")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollowBossB/Boss2B"]
+shape = SubResource("CircleShape2D_vsxsf")
 
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
+[node name="BlockersB" type="StaticBody2D" parent="Path2D/PathFollowBossB/Boss2B"]
+visible = false
+rotation = 3.14125
+scale = Vector2(1.5, 1.5)
+skew = 0.000325561
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2DLeft" type="CollisionShape2D" parent="Path2D/PathFollowBossB/Boss2B/BlockersB"]
+position = Vector2(-30, 0)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_7q1k8")
+disabled = true
+
+[node name="CollisionShape2DRight" type="CollisionShape2D" parent="Path2D/PathFollowBossB/Boss2B/BlockersB"]
+position = Vector2(30, 0)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_7q1k8")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Path2D/PathFollowBossB/Boss2B/BlockersB"]
+texture = ExtResource("10_crrqx")
+
+[node name="ShootPointTL" type="Marker2D" parent="Path2D/PathFollowBossB/Boss2B"]
+position = Vector2(15.0002, 14.995)
+
+[node name="ShootPointTR" type="Marker2D" parent="Path2D/PathFollowBossB/Boss2B"]
+position = Vector2(-15.9998, 15.0058)
+
+[node name="ShootPointBL" type="Marker2D" parent="Path2D/PathFollowBossB/Boss2B"]
+position = Vector2(14.9996, -16.0049)
+
+[node name="ShootPointBR" type="Marker2D" parent="Path2D/PathFollowBossB/Boss2B"]
+position = Vector2(-16.0004, -15.9942)
+
+[connection signal="animation_finished" from="Path2D/PathFollowBossA/Boss2A/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_finished" from="Path2D/PathFollowBossB/Boss2B/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_bossB_animation_finished"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c0dvogempwjhr"]
+[gd_scene load_steps=14 format=3 uid="uid://c0dvogempwjhr"]
 
 [ext_resource type="Script" path="res://scenes/bosses/boss_1.gd" id="1_vh6w2"]
 [ext_resource type="Texture2D" uid="uid://la2yonaly26u" path="res://assets/boss1.png" id="2_0ufpg"]
@@ -7,6 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://dpociqxdp4658" path="res://assets/boss3.png" id="4_vg18w"]
 [ext_resource type="Texture2D" uid="uid://6rct7aptmqme" path="res://assets/boss4.png" id="5_6414q"]
 [ext_resource type="Texture2D" uid="uid://dhh734mxgisal" path="res://assets/boss5.png" id="6_nkuaj"]
+[ext_resource type="Texture2D" uid="uid://dkf8y4q6bw7du" path="res://assets/boss6.png" id="7_2ib8i"]
+[ext_resource type="Texture2D" uid="uid://c2nsr50wpcl3i" path="res://assets/boss7.png" id="8_yj67s"]
+[ext_resource type="Texture2D" uid="uid://bmigh01cqpm6m" path="res://assets/boss8.png" id="9_mrd55"]
+[ext_resource type="Texture2D" uid="uid://bc0p8rsu625f5" path="res://assets/boss9.png" id="10_bmlrq"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bjgeg"]
 animations = [{
@@ -34,6 +38,23 @@ animations = [{
 "loop": false,
 "name": &"shoot",
 "speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_2ib8i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_yj67s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_mrd55")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_bmlrq")
+}],
+"loop": false,
+"name": &"shoot_explosion",
+"speed": 1.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p3isx"]
@@ -48,7 +69,7 @@ metadata/_edit_group_ = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_bjgeg")
-animation = &"shoot"
+animation = &"shoot_explosion"
 
 [node name="WeakPoint3" parent="." instance=ExtResource("3_1803v")]
 position = Vector2(-22, -22)

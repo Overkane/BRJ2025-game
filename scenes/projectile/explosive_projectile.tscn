@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://bc744xfa7ligo"]
+
+[ext_resource type="Script" path="res://scenes/projectile/explosive_projectile.gd" id="1_6xn0m"]
+[ext_resource type="Texture2D" uid="uid://ce2uwtks3wvne" path="res://assets/explosive-projectile1.png" id="2_ss6o2"]
+[ext_resource type="Texture2D" uid="uid://bee3hcqquq7tr" path="res://assets/explosive-projectile2.png" id="3_ybj36"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6e2l5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ss6o2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ybj36")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_37v7i"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nalhh"]
+radius = 71.0
+
+[node name="ExplosiveProjectile" type="Area2D" groups=["projectiles"]]
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("1_6xn0m")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6e2l5")
+animation = &"idle"
+autoplay = "idle"
+frame = 1
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_37v7i")
+
+[node name="ExplosionRadius2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionRadius2D"]
+shape = SubResource("CircleShape2D_nalhh")

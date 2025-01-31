@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameSettings="*res://singletons/game_settings.gd"
+SoundController="*res://singletons/sound_controller.gd"
 
 [display]
 
@@ -45,6 +46,7 @@ magnetrons=""
 player=""
 activators=""
 traps=""
+projectiles=""
 
 [input]
 

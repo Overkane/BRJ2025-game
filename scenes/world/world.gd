@@ -3,6 +3,8 @@ extends Node2D
 # Boss related
 var currentBoss: CharacterBody2D
 const boss1_scene := preload("res://scenes/bosses/boss_1.tscn")
+const boss2_scene := preload("res://scenes/bosses/boss_2.tscn")
+const boss3_scene := preload("res://scenes/bosses/boss_3.tscn")
 
 var isBoss1Defeated := false
 var isBoss2Defeated := false
@@ -17,6 +19,7 @@ func _ready():
 
 	$Boss1/Boss1BlockerEnter/CollisionShape2D.set_deferred("disabled", true)
 	$Boss2/Boss2BlockerEnter/CollisionShape2D.set_deferred("disabled", true)
+	$Boss3/Boss3BlockerEnter/CollisionShape2D.set_deferred("disabled", true)
 
 func _input(event):
 	if event.is_action_pressed("pause"):
@@ -24,35 +27,72 @@ func _input(event):
 
 
 # Player entered boss 1 area
-func _on_boss_1_area_enter_body_entered(body:Node2D) -> void:
-	if currentBoss == null and not isBoss1Defeated:
-		$Boss1/Boss1BlockerEnter.show()
-		$Boss1/Boss1BlockerEnter/CollisionShape2D.set_deferred("disabled", false)
-		
-		var boss1 = boss1_scene.instantiate()
-		boss1.global_position = $Boss1/Boss1SpawnPoint.global_position
-		boss1.rotation = 3 * PI / 2 # Rotation to the endter area by default
-		boss1.activate(body)
-		boss1.boss_defeat.connect(_on_boss_defeat.bind(boss1))
-		boss1.boss_reset.connect(_on_boss_reset.bind(boss1))
-		# TODO what is the point of calling deferred? Editor debugger asked to add this
-		call_deferred("add_child", boss1)
+func _on_boss_1_area_enter_body_entered(body:Node2D, boss_number: int) -> void:
+	if boss_number == 1:
+		if currentBoss == null and not isBoss1Defeated:
+			$Boss1/Boss1BlockerEnter.show()
+			$Boss1/Boss1BlockerEnter/CollisionShape2D.set_deferred("disabled", false)
+			
+			var boss1 = boss1_scene.instantiate()
+			boss1.global_position = $Boss1/Boss1SpawnPoint.global_position
+			boss1.rotation = 3 * PI / 2 # Rotation to the endter area by default
+			boss1.activate(body)
+			boss1.boss_defeat.connect(_on_boss_defeat.bind(boss1))
+			boss1.boss_reset.connect(_on_boss_reset.bind(boss1))
+			# TODO what is the point of calling deferred? Editor debugger asked to add this
+			call_deferred("add_child", boss1)
 
-		currentBoss = boss1
+			currentBoss = boss1
+	elif boss_number == 2:
+		if currentBoss == null and not isBoss2Defeated:
+			$Boss2/Boss2BlockerEnter.show()
+			$Boss2/Boss2BlockerEnter/CollisionShape2D.set_deferred("disabled", false)
+			
+			var boss2 = boss2_scene.instantiate()
+			boss2.global_position = $Boss2/Boss2SpawnPoint.global_position
+			boss2.activate(body)
+			boss2.boss_defeat.connect(_on_boss_defeat.bind(boss2))
+			boss2.boss_reset.connect(_on_boss_reset.bind(boss2))
+			# TODO what is the point of calling deferred? Editor debugger asked to add this
+			call_deferred("add_child", boss2)
+
+			currentBoss = boss2
+	elif boss_number == 3:
+		if currentBoss == null and not isBoss2Defeated:
+			$Boss3/Boss3BlockerEnter.show()
+			$Boss3/Boss3BlockerEnter/CollisionShape2D.set_deferred("disabled", false)
+			
+			var boss3 = boss3_scene.instantiate()
+			boss3.global_position = $Boss3/Boss3SpawnPoint.global_position
+			boss3.activate(body)
+			boss3.boss_defeat.connect(_on_boss_defeat.bind(boss3))
+			boss3.boss_reset.connect(_on_boss_reset.bind(boss3))
+			# TODO what is the point of calling deferred? Editor debugger asked to add this
+			call_deferred("add_child", boss3)
+
+			currentBoss = boss3
 
 func _on_boss_defeat(boss: CharacterBody2D) -> void:
+	for projectile in get_tree().get_nodes_in_group("projectiles"):
+		projectile.queue_free()
+
 	if boss is Boss1:
+		$Boss1/Boss1BlockerEnter.queue_free()
 		$Boss1/Boss1BlockerExit.queue_free()
 		boss.queue_free()
 		isBoss1Defeated = true
 	elif boss is Boss2:
+		$Boss2/Boss2BlockerEnter.queue_free()
 		$Boss2/Boss2BlockerExit.queue_free()
 		boss.queue_free()
 		isBoss2Defeated = true
-	# elif boss is Boss3:
-	# 	$Boss3/Boss3BlockerExit.queue_free()
+	elif boss is Boss3:
+		$Boss3/Boss3BlockerEnter.queue_free()
 
 func _on_boss_reset(boss: CharacterBody2D) -> void:
+	for projectile in get_tree().get_nodes_in_group("projectiles"):
+		projectile.queue_free()
+
 	currentBoss = null
 	boss.queue_free()
 	if boss is Boss1:
@@ -65,8 +105,11 @@ func _on_boss_reset(boss: CharacterBody2D) -> void:
 		$Boss2/Boss2BlockerEnter/CollisionShape2D.set_deferred("disabled", true)
 
 		$Player.on_death_reset()
-	# elif boss is Boss3:
-	# 	$Boss3/Boss3BlockerExit.hide()
+	elif boss is Boss3:
+		$Boss3/Boss3BlockerEnter.hide()
+		$Boss3/Boss3BlockerEnter/CollisionShape2D.set_deferred("disabled", true)
+
+		$Player.on_death_reset()
 
 # Traps
 func _on_player_hit(_body: Node2D) -> void:

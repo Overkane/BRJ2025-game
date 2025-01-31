@@ -4,6 +4,7 @@ extends CharacterBody2D
 const MAX_SPACE_JUMP_SPEED = 210.
 const MIN_SPACE_JUMP_SPEED = 100.
 var canUseSpaceJump := false
+var canUseSpaceJumpBonus := false
 var currentMousePos := Vector2.ZERO
 var gradient: Gradient
 
@@ -24,7 +25,7 @@ var checkpoint_magnetron_orbitting_direction: float
 
 
 func _ready():
-	$GPUParticles2D.emitting = false
+	$CPUParticles2D.emitting = false
 
 	# Color depends on velocity
 	gradient = Gradient.new()
@@ -33,19 +34,22 @@ func _ready():
 	gradient.add_point(MAX_SPACE_JUMP_SPEED, Color.RED)
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("LMB") and canUseSpaceJump:
+	if event.is_action_pressed("LMB") and hasSpaceJump():
 		currentMousePos = get_global_mouse_position()
 
 		%DirectionMarker.show()
-	if event.is_action_released("LMB") and canUseSpaceJump:
+	if event.is_action_released("LMB") and hasSpaceJump():
 		$AnimatedSprite2D.play("space_jump")
+
+		# Check _on_player_bonus_jump_pickup. Remove slow after jump, so you are not slowed during it.
+		Engine.time_scale = 1.
 
 		# Can jump only when orbiting
 		if currentMagnetron != null:
 			currentMagnetron = null
 		
-		canUseSpaceJump = false
-		$GPUParticles2D.emitting = true
+		resetSpaceJump()
+		$CPUParticles2D.emitting = true
 		
 		# Calculate jump power based on mouse distance, but can't exceed MAX_SPACE_JUMP_SPEED
 		var lastMousePos = get_global_mouse_position()
@@ -121,7 +125,7 @@ func _on_player_entered_magnetron_zone(magnetron: CharacterBody2D, isCheckpoint:
 	$Node/PullTrajectory.hide()
 
 	canUseSpaceJump = true
-	$GPUParticles2D.emitting = false
+	$CPUParticles2D.emitting = false
 	currentMagnetron = magnetron
 	magnetron_orbitting_radius = global_position.distance_to(magnetron.global_position)
 	magnetron_initial_orbitting_angle = magnetron.global_position.direction_to(global_position).angle()
@@ -136,12 +140,18 @@ func _on_player_entered_magnetron_zone(magnetron: CharacterBody2D, isCheckpoint:
 		activateCheckpoint(magnetron)
 
 func _on_player_bonus_jump_pickup() -> void:
-	canUseSpaceJump = true
+	canUseSpaceJumpBonus = true
 	Engine.time_scale = 0.15
-	AudioServer.playback_speed_scale = 0.5
 	await get_tree().create_timer(Engine.time_scale * 2).timeout
 	Engine.time_scale = 1.
-	AudioServer.playback_speed_scale = 1.
+
+
+func hasSpaceJump() -> bool:
+	return canUseSpaceJump or canUseSpaceJumpBonus
+
+func resetSpaceJump() -> void:
+	canUseSpaceJump = false
+	canUseSpaceJumpBonus = false
 
 func activateCheckpoint(magnetron: CharacterBody2D) -> void:
 	if magnetronCheckpoint != null:
@@ -160,7 +170,7 @@ func on_death_reset() -> void:
 		global_position = checkpointPosition
 		magnetron_initial_orbitting_angle = checkpointAnglePosition
 		magnetron_orbitting_radius = checkpointOrbittingRadius
-		canUseSpaceJump = true
+		resetSpaceJump()
 		velocity = Vector2.ZERO
 	else:
 		print("No checkpoint found")

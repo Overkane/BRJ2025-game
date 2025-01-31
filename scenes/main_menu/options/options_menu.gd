@@ -18,6 +18,9 @@ func _ready():
 	_music_slider.set_value_no_signal(db_to_linear(AudioServer.get_bus_volume_db(SoundBuses.MUSIC)))
 	_sfx_slider.set_value_no_signal(db_to_linear(AudioServer.get_bus_volume_db(SoundBuses.SFX)))
 
+	# Seems that html5 doesn't support mouse confine mode
+	if OS.has_feature("web"):
+		_mouse_lock_checkbox.hide()
 
 func _on_check_box_pressed() -> void:
 	if DisplayServer.mouse_get_mode() != DisplayServer.MOUSE_MODE_CONFINED:
@@ -45,6 +48,6 @@ func set_default_settings() -> void:
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 	_mouse_lock_checkbox.set_pressed_no_signal(GameSettings.isMouseLock)
 	
-	var default_sound_volume = 0.6
+	var default_sound_volume = 0.1
 	AudioServer.set_bus_volume_db(SoundBuses.MASTER, linear_to_db(default_sound_volume))
 	_master_slider.set_value_no_signal(db_to_linear(AudioServer.get_bus_volume_db(SoundBuses.MASTER)))
