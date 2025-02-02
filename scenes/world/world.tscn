@@ -360,7 +360,7 @@ autoplay = true
 bus = &"Music"
 
 [node name="Player" parent="." instance=ExtResource("5_smwda")]
-position = Vector2(63, 36)
+position = Vector2(62, 37)
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = -2
@@ -891,7 +891,6 @@ layout_mode = 1
 
 [node name="GameWonScreen" type="PanelContainer" parent="HUD"]
 process_mode = 2
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

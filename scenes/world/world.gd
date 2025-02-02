@@ -28,7 +28,8 @@ func _ready():
 	$HUD/PauseMenu/MarginContainer/HBoxContainer/OptionsButton.mouse_entered.connect(_on_button_hover_sfx)
 
 	$Player.player_moved.connect(_on_player_move)
-	
+	Globals.world_node = self
+
 func _input(event):
 	if event.is_action_pressed("pause"):
 		togglePauseMenu()

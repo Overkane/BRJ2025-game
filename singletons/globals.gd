@@ -1,7 +1,7 @@
 extends Node
 
 var player_camera: Camera2D
-
+var world_node
 var rng = RandomNumberGenerator.new()
 
 # Camera shake

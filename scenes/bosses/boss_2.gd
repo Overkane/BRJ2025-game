@@ -75,7 +75,7 @@ func bossBBehaviourLoop() -> void:
 			$Path2D/PathFollowBossB/Boss2B/AnimatedSprite2D.play("laserTLBR")
 
 func shootA(animationName: String) -> void:
-	var number_of_attacks = 2 if not isBossARage else 4 
+	var number_of_attacks = 1 if not isBossARage else 2 
 	# Can be killed during animation6
 	if bossA == null:
 		return

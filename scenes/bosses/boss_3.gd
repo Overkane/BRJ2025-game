@@ -8,6 +8,9 @@ static var first_time_on_boss := true
 # General properties
 var isLeftEyeCasting := false
 var isRightEyeACasting := false
+var leftEyeSpeed := 50
+var rightEyeSpeed := 25
+
 
 var isActivated := false
 var currentPhase := 0
@@ -59,15 +62,15 @@ func _physics_process(delta):
 
 			var shift = eyeLine.dot(playerPos - eyePos)
 
-			$BossLeftEye.global_position = eyePos + eyeLine * shift * delta
-		if not isLeftEyeCasting:
+			$BossLeftEye.global_position = $BossLeftEye.global_position.move_toward(eyePos + eyeLine * shift * delta, leftEyeSpeed)
+		if not isRightEyeACasting:
 			var eyePos = $BossRightEye.global_position
 			var playerPos := playerTarget.global_position
 			var eyeLine = ($RightEyeMarkerBottom.global_position - $RightEyeMarkerTop.global_position).normalized()
 
 			var shift = eyeLine.dot(playerPos - eyePos)
-
-			$BossRightEye.global_position = eyePos + eyeLine * shift * delta
+			
+			$BossRightEye.global_position = $BossRightEye.global_position.move_toward(eyePos + eyeLine * shift * delta, rightEyeSpeed)
 
 
 

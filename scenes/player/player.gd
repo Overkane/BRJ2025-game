@@ -6,7 +6,7 @@ var explosion_effect_scene := preload("res://scenes/particles/explosion_effect.t
 
 # Player stats
 var deathCount := 0
-var timeElapsed := 0
+var timeElapsed := 0.
 
 # Player related
 const MAX_SPACE_JUMP_SPEED = 210.
