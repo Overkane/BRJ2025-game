@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+signal player_moved
+
+var explosion_effect_scene := preload("res://scenes/particles/explosion_effect.tscn")
+
 # Player stats
 var deathCount := 0
 var timeElapsed := 0
@@ -73,6 +77,9 @@ func _input(event: InputEvent) -> void:
 			$Node/PullTrajectory.hide()
 
 func _process(_delta):
+	if not get_tree().paused:
+		timeElapsed += _delta
+
 	if %DirectionMarker.visible:
 		updateTrajectory()
 
@@ -139,13 +146,18 @@ func _physics_process(_delta: float) -> void:
 			$Node/PullTrajectory.add_point(global_position)
 			$Node/PullTrajectory.add_point(closestMagnetron.global_position)
 			isMagnettronPulling = true
-			$MagnetronPullingSFX2D2.play()
+			if not $MagnetronPullingSFX2D2.playing:
+				$MagnetronPullingSFX2D2.play()
+
+	player_moved.emit(velocity * _delta)
 
 	# General movement
 	var collision := move_and_collide(velocity * _delta)
 	if collision:
 		velocity = velocity.bounce(collision.get_normal())
-		$BounceSFX2D.play()
+		player_moved.emit(velocity * _delta)
+		if not $BounceSFX2D.playing:
+			$BounceSFX2D.play()
 	
 	rotation = global_position.direction_to(oldPosition).angle()
 
@@ -176,7 +188,7 @@ func _on_player_entered_magnetron_zone(magnetron: CharacterBody2D, isCheckpoint:
 func _on_player_bonus_jump_pickup() -> void:
 	canUseSpaceJumpBonus = true
 	Engine.time_scale = 0.15
-	await get_tree().create_timer(Engine.time_scale * 2).timeout
+	await get_tree().create_timer(Engine.time_scale * 1).timeout
 	Engine.time_scale = 1.
 
 
@@ -201,6 +213,13 @@ func activateCheckpoint(magnetron: CharacterBody2D) -> void:
 		checkpoint_magnetron_orbitting_direction = magnetron_orbitting_direction
 
 func on_death_reset() -> void:
+	deathCount += 1
+
+	# Player death effect
+	var explosion_effect = explosion_effect_scene.instantiate()
+	ParticleSystem.add_effect(explosion_effect, global_position)
+	await get_tree().create_timer(0.2).timeout
+
 	if magnetronCheckpoint != null:
 		currentMagnetron = magnetronCheckpoint
 		global_position = checkpointPosition

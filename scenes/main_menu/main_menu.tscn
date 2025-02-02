@@ -1,9 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://dsyhl0fbklx8b"]
+[gd_scene load_steps=8 format=3 uid="uid://dsyhl0fbklx8b"]
 
 [ext_resource type="Script" path="res://scenes/main_menu/main_menu.gd" id="1_2fi0w"]
+[ext_resource type="Shader" path="res://scenes/main_menu/main_menu.gdshader" id="1_sa1lo"]
 [ext_resource type="AudioStream" uid="uid://cbom36v322gxt" path="res://assets/music/Bleeping Demo.mp3" id="2_7gjwb"]
 [ext_resource type="PackedScene" uid="uid://dy1ucm14pdeq3" path="res://scenes/main_menu/credits/credits.tscn" id="3_2h6cr"]
 [ext_resource type="PackedScene" uid="uid://cmkdd8vejyrav" path="res://scenes/main_menu/options/options_menu.tscn" id="3_bnxyv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fj8tr"]
+shader = ExtResource("1_sa1lo")
+shader_parameter/bg_color = null
+
+[sub_resource type="LabelSettings" id="LabelSettings_fq76y"]
+font_size = 24
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -13,6 +21,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_2fi0w")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_fj8tr")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="MenuMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_7gjwb")
@@ -35,19 +52,48 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="PlayButton" type="Button" parent="Menu"]
+[node name="GameTitle" type="Label" parent="Menu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Space Misadventure"
+label_settings = SubResource("LabelSettings_fq76y")
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 40
+
+[node name="PlayButton" type="Button" parent="Menu/MarginContainer"]
 layout_mode = 2
 text = "Play"
 
-[node name="OptionsButton" type="Button" parent="Menu"]
+[node name="MarginContainer2" type="MarginContainer" parent="Menu"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 40
+
+[node name="OptionsButton" type="Button" parent="Menu/MarginContainer2"]
 layout_mode = 2
 text = "Options"
 
-[node name="CreditsButton" type="Button" parent="Menu"]
+[node name="MarginContainer3" type="MarginContainer" parent="Menu"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 40
+
+[node name="CreditsButton" type="Button" parent="Menu/MarginContainer3"]
 layout_mode = 2
 text = "Credits"
 
-[node name="QuitButton" type="Button" parent="Menu"]
+[node name="MarginContainer4" type="MarginContainer" parent="Menu"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 40
+
+[node name="QuitButton" type="Button" parent="Menu/MarginContainer4"]
 layout_mode = 2
 text = "Quit"
 
@@ -59,9 +105,9 @@ layout_mode = 1
 visible = false
 layout_mode = 1
 
-[connection signal="pressed" from="Menu/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="Menu/OptionsButton" to="." method="_on_options_button_pressed"]
-[connection signal="pressed" from="Menu/CreditsButton" to="." method="_on_credits_button_pressed"]
-[connection signal="pressed" from="Menu/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Menu/MarginContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Menu/MarginContainer2/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="Menu/MarginContainer3/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="Menu/MarginContainer4/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="return_to_main_menu" from="OptionsMenu" to="." method="_on_options_menu_return_to_main_menu"]
 [connection signal="return_to_main_menu" from="Credits" to="." method="_on_credits_return_to_main_menu"]

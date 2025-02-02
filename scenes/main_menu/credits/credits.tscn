@@ -11,7 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0a8mt")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,61 +19,74 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HeaderText" type="Label" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HeaderText" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "Credits"
 horizontal_alignment = 1
 uppercase = true
 
-[node name="Body" type="ScrollContainer" parent="VBoxContainer"]
+[node name="Body" type="ScrollContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Body"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/Body"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
-[node name="CreditsText" type="RichTextLabel" parent="VBoxContainer/Body/VBoxContainer"]
+[node name="CreditsText" type="RichTextLabel" parent="PanelContainer/VBoxContainer/Body/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/bold_italics_font_size = 12
-theme_override_font_sizes/italics_font_size = 12
-theme_override_font_sizes/mono_font_size = 12
-theme_override_font_sizes/normal_font_size = 12
-theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/bold_italics_font_size = 14
+theme_override_font_sizes/italics_font_size = 14
+theme_override_font_sizes/mono_font_size = 14
+theme_override_font_sizes/normal_font_size = 14
+theme_override_font_sizes/bold_font_size = 14
 bbcode_enabled = true
-text = "[center]
-Made by Overkane
-
+text = "[center]Made by Overkane
 
 [b]Special Thanks[/b]
-
 [b]Main menu music[/b]
 \"Bleeping Demo\" Kevin MacLeod (incompetech.com)
 Licensed under Creative Commons: By Attribution 4.0 License
 http://creativecommons.org/licenses/by/4.0/
+
+[b]Main menu shader[/b]
+https://godotshaders.com/shader/stars-shader/
 
 [b]Gameplay music[/b]
 \"Rhinoceros\" Kevin MacLeod (incompetech.com)
 Licensed under Creative Commons: By Attribution 3.0 License
 http://creativecommons.org/licenses/by/3.0/
 
+[b]Gameplay moving shader[/b]
+https://godotshaders.com/shader/space-background-parallax/
+
 [b]Explosion sound[/b]
 Short Explosion 1 by AceOfSpadesProduc100 -- https://freesound.org/s/334266/ -- License: Attribution 4.0
-
-Made with Godot [img]res://icon.svg[/img]
 [/center]"
 fit_content = true
 
-[node name="BackButton" type="Button" parent="VBoxContainer"]
+[node name="Footer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="BackButton" type="Button" parent="PanelContainer/VBoxContainer/Footer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 12
 text = "Back
 "
 
-[connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Footer/BackButton" to="." method="_on_back_button_pressed"]

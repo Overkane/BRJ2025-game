@@ -3,7 +3,7 @@ extends Control
 @onready var _menu = $Menu
 @onready var _credits = $Credits
 @onready var _options_menu = $OptionsMenu
-@onready var _quit_button = $Menu/QuitButton
+@onready var _quit_button = $Menu/MarginContainer4/QuitButton
 
 const WORLD_SCENE := preload("res://scenes/world/world.tscn")
 

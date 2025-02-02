@@ -11,116 +11,131 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0cimc")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Header" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+[node name="Header" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="HeaderText" type="Label" parent="MarginContainer/VBoxContainer/Header"]
+[node name="HeaderText" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Header"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Options"
 horizontal_alignment = 1
 
-[node name="SplitContainer" type="SplitContainer" parent="MarginContainer/VBoxContainer"]
+[node name="SplitContainer" type="SplitContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 dragger_visibility = 1
 
-[node name="VideoSettingsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/SplitContainer"]
+[node name="VideoSettingsContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/SplitContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VideoSettingsTitle" type="Label" parent="MarginContainer/VBoxContainer/SplitContainer/VideoSettingsContainer"]
+[node name="VideoSettingsTitle" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/VideoSettingsContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Video
 "
 horizontal_alignment = 1
 
-[node name="MouseLockCheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/SplitContainer/VideoSettingsContainer"]
+[node name="MouseLockCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/VideoSettingsContainer"]
 layout_mode = 2
 tooltip_text = "Determines whether the mouse can go outside of the game screen."
 text = "Mouse Lock"
 
-[node name="AudioSettingsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/SplitContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/SplitContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_right = 150
+
+[node name="AudioSettingsContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AudioSettingsTitle" type="Label" parent="MarginContainer/VBoxContainer/SplitContainer/AudioSettingsContainer"]
+[node name="AudioSettingsTitle" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/MarginContainer/AudioSettingsContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Audio
 "
 horizontal_alignment = 1
 
-[node name="MarginContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SplitContainer/AudioSettingsContainer"]
+[node name="MarginContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/MarginContainer/AudioSettingsContainer"]
 layout_mode = 2
 
-[node name="MasterSliderLabel" type="Label" parent="MarginContainer/VBoxContainer/SplitContainer/AudioSettingsContainer/MarginContainer"]
+[node name="MasterSliderLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/MarginContainer/AudioSettingsContainer/MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
 text = "Master
 "
 
-[node name="MasterSlider" type="HSlider" parent="MarginContainer/VBoxContainer/SplitContainer/AudioSettingsContainer/MarginContainer"]
+[node name="MasterSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/MarginContainer/AudioSettingsContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0
 step = 0.05
 
-[node name="MarginContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SplitContainer/AudioSettingsContainer"]
+[node name="MarginContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/MarginContainer/AudioSettingsContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="MusicSliderLabel" type="Label" parent="MarginContainer/VBoxContainer/SplitContainer/AudioSettingsContainer/MarginContainer2"]
+[node name="MusicSliderLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/MarginContainer/AudioSettingsContainer/MarginContainer2"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
 text = "Music"
 
-[node name="MusicSlider" type="HSlider" parent="MarginContainer/VBoxContainer/SplitContainer/AudioSettingsContainer/MarginContainer2"]
+[node name="MusicSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/MarginContainer/AudioSettingsContainer/MarginContainer2"]
 layout_mode = 2
 size_flags_horizontal = 7
 max_value = 1.0
 step = 0.05
 
-[node name="MarginContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SplitContainer/AudioSettingsContainer"]
+[node name="MarginContainer3" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/MarginContainer/AudioSettingsContainer"]
 layout_mode = 2
 
-[node name="SFXSliderLabel" type="Label" parent="MarginContainer/VBoxContainer/SplitContainer/AudioSettingsContainer/MarginContainer3"]
+[node name="SFXSliderLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/MarginContainer/AudioSettingsContainer/MarginContainer3"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
 text = "SFX"
 
-[node name="SFXSlider" type="HSlider" parent="MarginContainer/VBoxContainer/SplitContainer/AudioSettingsContainer/MarginContainer3"]
+[node name="SFXSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/MarginContainer/AudioSettingsContainer/MarginContainer3"]
 layout_mode = 2
 size_flags_horizontal = 7
 max_value = 1.0
 step = 0.05
 
-[node name="Footer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+[node name="Footer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer/Footer"]
+[node name="BackButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/Footer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Back"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/SplitContainer/VideoSettingsContainer/MouseLockCheckBox" to="." method="_on_check_box_pressed"]
-[connection signal="value_changed" from="MarginContainer/VBoxContainer/SplitContainer/AudioSettingsContainer/MarginContainer/MasterSlider" to="." method="_on_master_slider_value_changed"]
-[connection signal="value_changed" from="MarginContainer/VBoxContainer/SplitContainer/AudioSettingsContainer/MarginContainer2/MusicSlider" to="." method="_on_music_slider_value_changed"]
-[connection signal="value_changed" from="MarginContainer/VBoxContainer/SplitContainer/AudioSettingsContainer/MarginContainer3/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Footer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/VideoSettingsContainer/MouseLockCheckBox" to="." method="_on_check_box_pressed"]
+[connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/MarginContainer/AudioSettingsContainer/MarginContainer/MasterSlider" to="." method="_on_master_slider_value_changed"]
+[connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/MarginContainer/AudioSettingsContainer/MarginContainer2/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/MarginContainer/AudioSettingsContainer/MarginContainer3/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Footer/BackButton" to="." method="_on_back_button_pressed"]

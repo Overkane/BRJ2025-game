@@ -12,6 +12,7 @@ offsets = PackedFloat32Array(0.523466, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
 
 [node name="ExplosionEffect" type="CPUParticles2D"]
+process_mode = 3
 self_modulate = Color(1, 0.563667, 0.23, 1)
 emitting = false
 amount = 60

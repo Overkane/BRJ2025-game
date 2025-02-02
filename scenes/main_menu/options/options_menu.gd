@@ -2,11 +2,11 @@ extends Control
 
 signal return_to_main_menu
 
-@onready var _mouse_lock_checkbox := $MarginContainer/VBoxContainer/SplitContainer/VideoSettingsContainer/MouseLockCheckBox
+@onready var _mouse_lock_checkbox := $PanelContainer/MarginContainer/VBoxContainer/SplitContainer/VideoSettingsContainer/MouseLockCheckBox
 
-@onready var _master_slider := $MarginContainer/VBoxContainer/SplitContainer/AudioSettingsContainer/MarginContainer/MasterSlider
-@onready var _music_slider := $MarginContainer/VBoxContainer/SplitContainer/AudioSettingsContainer/MarginContainer2/MusicSlider
-@onready var _sfx_slider := $MarginContainer/VBoxContainer/SplitContainer/AudioSettingsContainer/MarginContainer3/SFXSlider
+@onready var _master_slider := $PanelContainer/MarginContainer/VBoxContainer/SplitContainer/MarginContainer/AudioSettingsContainer/MarginContainer/MasterSlider
+@onready var _music_slider := $PanelContainer/MarginContainer/VBoxContainer/SplitContainer/MarginContainer/AudioSettingsContainer/MarginContainer2/MusicSlider
+@onready var _sfx_slider := $PanelContainer/MarginContainer/VBoxContainer/SplitContainer/MarginContainer/AudioSettingsContainer/MarginContainer3/SFXSlider
 
 enum SoundBuses { MASTER, MUSIC, SFX }
 

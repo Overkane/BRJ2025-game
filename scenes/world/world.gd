@@ -19,6 +19,8 @@ func _ready():
 
 	$Boss1/Boss1BlockerEnter/CollisionShape2D.set_deferred("disabled", true)
 	$Boss2/Boss2BlockerEnter/CollisionShape2D.set_deferred("disabled", true)
+
+	$Player.player_moved.connect(_on_player_move)
 	
 func _input(event):
 	if event.is_action_pressed("pause"):
@@ -75,8 +77,17 @@ func _on_boss_defeat(boss: CharacterBody2D) -> void:
 		spawn_boss3()
 	elif boss is Boss3:
 		boss.queue_free()
-		print("you won")
-		# Game finish
+		get_tree().paused = true
+		$HUD/GameWonScreen/MarginContainer/VBoxContainer/DeathCount.text = $HUD/GameWonScreen/MarginContainer/VBoxContainer/DeathCount.format($Player.deathCount)
+		var timerText = $HUD/GameWonScreen/MarginContainer/VBoxContainer/TimeCount.text
+		var timeOverall = $Player.timeElapsed
+		var timeMins = int(timeOverall) / 60.
+		timeOverall -= timeMins * 60
+		var seconds = int(timeOverall)
+		timeOverall -= seconds
+		var milisec = int(timeOverall * 100)
+		timerText = timerText.format(str(timeMins) + ":" + str(seconds) + ":" + str(milisec)) 
+		$HUD/GameWonScreen.show()
 
 func _on_boss_reset(boss: CharacterBody2D) -> void:
 	for projectile in get_tree().get_nodes_in_group("projectiles"):
@@ -104,6 +115,12 @@ func _on_player_hit(_body: Node2D) -> void:
 		_on_boss_reset(currentBoss)
 	else: 
 		$Player.on_death_reset()
+
+func _on_player_move(velocity: Vector2) -> void:
+	var shader_material: ShaderMaterial = $CanvasLayer/ColorRect.material
+	print(velocity)
+	print(shader_material.get_shader_parameter("offset"))
+	shader_material.set_shader_parameter("offset", shader_material.get_shader_parameter("offset") +  velocity)
 
 # Activators for tutorial destroy tiles nearby with help of invisible activator tiles
 func _on_activator_body_entered(_body: Node2D, activator: Area2D) -> void:

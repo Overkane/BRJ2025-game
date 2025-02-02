@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://cbvomdgkssg2e"]
+[gd_scene load_steps=33 format=4 uid="uid://cbvomdgkssg2e"]
 
 [ext_resource type="Script" path="res://scenes/world/world.gd" id="1_kaq1e"]
 [ext_resource type="PackedScene" uid="uid://df60px4n320j3" path="res://scenes/magnetron/magnetron.tscn" id="2_1ggxs"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://40mr3b66efjo" path="res://assets/jump-bonus.png" id="14_fwtws"]
 [ext_resource type="PackedScene" uid="uid://cmkdd8vejyrav" path="res://scenes/main_menu/options/options_menu.tscn" id="15_igmki"]
 [ext_resource type="PackedScene" uid="uid://cxmr21cgijd61" path="res://scenes/jump_bonus/jump_bonus.tscn" id="16_v68j2"]
+[ext_resource type="Shader" path="res://scenes/world/world.gdshader" id="18_tj7iw"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_n0eya"]
 
@@ -332,9 +333,16 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n1300"]
 size = Vector2(7.5, 112)
 
-[sub_resource type="Environment" id="Environment_6qywm"]
-background_mode = 3
-glow_enabled = true
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_36ix8"]
+shader = ExtResource("18_tj7iw")
+shader_parameter/bg_color = null
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/bigStarSlow = 2.0
+shader_parameter/mediumStarSlow = 6.0
+shader_parameter/smallStarSlow = 8.0
+shader_parameter/smallStarAmount = 0.002
+shader_parameter/mediumStarAmount = 0.01
+shader_parameter/bigStarAmount = 0.02
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_kaq1e")
@@ -350,7 +358,7 @@ autoplay = true
 bus = &"Music"
 
 [node name="Player" parent="." instance=ExtResource("5_smwda")]
-position = Vector2(2041, 224)
+position = Vector2(3365, 32)
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = -2
@@ -879,6 +887,48 @@ color = Color(0, 0, 0, 1)
 [node name="OptionsMenu" parent="HUD/OptionsMenuContainer" instance=ExtResource("15_igmki")]
 layout_mode = 1
 
+[node name="GameWonScreen" type="PanelContainer" parent="HUD"]
+process_mode = 2
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/GameWonScreen"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/GameWonScreen/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUD/GameWonScreen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "You won!
+Your game stats:"
+
+[node name="TimeCount" type="Label" parent="HUD/GameWonScreen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Time: {0}"
+
+[node name="DeathCount" type="Label" parent="HUD/GameWonScreen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Deaths: {0}"
+
+[node name="Label2" type="Label" parent="HUD/GameWonScreen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Thanks for playing!"
+
 [node name="Pickups" type="Node" parent="."]
 
 [node name="JumpBonus" parent="Pickups" instance=ExtResource("16_v68j2")]
@@ -944,11 +994,19 @@ position = Vector2(2688, 256)
 [node name="JumpBonus4" parent="Pickups" instance=ExtResource("16_v68j2")]
 position = Vector2(2880, 256)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_6qywm")
-
 [node name="Activator2" parent="." instance=ExtResource("8_w814p")]
 position = Vector2(138, 122)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+follow_viewport_enabled = true
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_36ix8")
+offset_left = -468.0
+offset_top = -552.0
+offset_right = 3803.0
+offset_bottom = 877.0
 
 [connection signal="body_entered" from="Boss1/Boss1AreaEnter" to="." method="_on_boss_1_area_enter_body_entered" binds= [1]]
 [connection signal="body_entered" from="Boss2/Boss2AreaEnter" to="." method="_on_boss_1_area_enter_body_entered" binds= [2]]
