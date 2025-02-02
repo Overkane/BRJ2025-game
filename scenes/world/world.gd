@@ -89,7 +89,7 @@ func _on_boss_defeat(boss: CharacterBody2D) -> void:
 		$HUD/GameWonScreen/MarginContainer/VBoxContainer/DeathCount.text = $HUD/GameWonScreen/MarginContainer/VBoxContainer/DeathCount.text.format([$Player.deathCount])
 		var timerText = $HUD/GameWonScreen/MarginContainer/VBoxContainer/TimeCount.text
 		var timeOverall = $Player.timeElapsed
-		var timeMins = int(timeOverall) / 60.
+		var timeMins = int(int(timeOverall) / 60.)
 		timeOverall -= timeMins * 60
 		var seconds = int(timeOverall)
 		timeOverall -= seconds
