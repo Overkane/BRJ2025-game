@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 
 GameSettings="*res://singletons/game_settings.gd"
 SoundController="*res://singletons/sound_controller.gd"
+ParticleSystem="*res://singletons/particle_system.gd"
 
 [display]
 

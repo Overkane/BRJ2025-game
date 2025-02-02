@@ -19,8 +19,7 @@ func _ready():
 
 	$Boss1/Boss1BlockerEnter/CollisionShape2D.set_deferred("disabled", true)
 	$Boss2/Boss2BlockerEnter/CollisionShape2D.set_deferred("disabled", true)
-	$Boss3/Boss3BlockerEnter/CollisionShape2D.set_deferred("disabled", true)
-
+	
 func _input(event):
 	if event.is_action_pressed("pause"):
 		togglePauseMenu()
@@ -57,20 +56,6 @@ func _on_boss_1_area_enter_body_entered(body:Node2D, boss_number: int) -> void:
 			call_deferred("add_child", boss2)
 
 			currentBoss = boss2
-	elif boss_number == 3:
-		if currentBoss == null and not isBoss2Defeated:
-			$Boss3/Boss3BlockerEnter.show()
-			$Boss3/Boss3BlockerEnter/CollisionShape2D.set_deferred("disabled", false)
-			
-			var boss3 = boss3_scene.instantiate()
-			boss3.global_position = $Boss3/Boss3SpawnPoint.global_position
-			boss3.activate(body)
-			boss3.boss_defeat.connect(_on_boss_defeat.bind(boss3))
-			boss3.boss_reset.connect(_on_boss_reset.bind(boss3))
-			# TODO what is the point of calling deferred? Editor debugger asked to add this
-			call_deferred("add_child", boss3)
-
-			currentBoss = boss3
 
 func _on_boss_defeat(boss: CharacterBody2D) -> void:
 	for projectile in get_tree().get_nodes_in_group("projectiles"):
@@ -86,8 +71,12 @@ func _on_boss_defeat(boss: CharacterBody2D) -> void:
 		$Boss2/Boss2BlockerExit.queue_free()
 		boss.queue_free()
 		isBoss2Defeated = true
+		# Boss 3 is spawned instantly, cuz he mimic to the level itself
+		spawn_boss3()
 	elif boss is Boss3:
-		$Boss3/Boss3BlockerEnter.queue_free()
+		boss.queue_free()
+		print("you won")
+		# Game finish
 
 func _on_boss_reset(boss: CharacterBody2D) -> void:
 	for projectile in get_tree().get_nodes_in_group("projectiles"):
@@ -106,10 +95,8 @@ func _on_boss_reset(boss: CharacterBody2D) -> void:
 
 		$Player.on_death_reset()
 	elif boss is Boss3:
-		$Boss3/Boss3BlockerEnter.hide()
-		$Boss3/Boss3BlockerEnter/CollisionShape2D.set_deferred("disabled", true)
-
 		$Player.on_death_reset()
+		spawn_boss3()
 
 # Traps
 func _on_player_hit(_body: Node2D) -> void:
@@ -122,7 +109,7 @@ func _on_player_hit(_body: Node2D) -> void:
 func _on_activator_body_entered(_body: Node2D, activator: Area2D) -> void:
 	var cellPosition: Vector2i = $TileMapLayer.local_to_map(activator.get_position())
 	destroyTileActivators(cellPosition)
-	activator.queue_free()
+	activator.destroy()
 
 func _on_resume_button_pressed() -> void:
 	togglePauseMenu()
@@ -160,3 +147,15 @@ func togglePauseMenu() -> void:
 	else:
 		get_tree().paused = false
 		%PauseMenu.hide()
+
+func spawn_boss3() -> void:
+	if currentBoss == null and not isBoss3Defeated:
+		var boss3 = boss3_scene.instantiate()
+		boss3.global_position = $Boss3/Boss3SpawnPoint.global_position
+		boss3.activate($Player)
+		boss3.boss_defeat.connect(_on_boss_defeat.bind(boss3))
+		boss3.boss_reset.connect(_on_boss_reset.bind(boss3))
+		# TODO what is the point of calling deferred? Editor debugger asked to add this
+		call_deferred("add_child", boss3)
+
+		currentBoss = boss3

@@ -22,6 +22,8 @@ func deactivate_checkpoint():
 	$Area2D/MagnetronCheckpointActivatedSprite.hide()
 	$Area2D/MagnetronCheckpointDeactivatedSprite2.show()
 
-func activate_checkpoint():
+func activate_checkpoint(playSound := true):
+	if playSound:
+		$CheckpointSFX2D.play()
 	$Area2D/MagnetronCheckpointActivatedSprite.show()
 	$Area2D/MagnetronCheckpointDeactivatedSprite2.hide()

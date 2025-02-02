@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://df60px4n320j3"]
+[gd_scene load_steps=8 format=3 uid="uid://df60px4n320j3"]
 
 [ext_resource type="Script" path="res://scenes/magnetron/magnetron.gd" id="1_eoprn"]
 [ext_resource type="Texture2D" uid="uid://biv3wk6gy02rj" path="res://assets/magnetron.png" id="1_ukb0u"]
 [ext_resource type="Texture2D" uid="uid://cev1aycqwyke4" path="res://assets/magnetron_checkpoint_activated.png" id="3_xo4r8"]
 [ext_resource type="Texture2D" uid="uid://bj2f340ewkw50" path="res://assets/magnetron_checkpoint_deactivated.png" id="4_p5tx5"]
+[ext_resource type="AudioStream" uid="uid://by5442tq24my5" path="res://assets/sfx/checkpoint.wav" id="5_3w2fe"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ne77"]
 radius = 15.5081
@@ -37,5 +38,10 @@ texture = ExtResource("4_p5tx5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_woi31")
+
+[node name="CheckpointSFX2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_3w2fe")
+volume_db = -5.0
+bus = &"SFX"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

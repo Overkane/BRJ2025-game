@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b1xyv0funrvab"]
+[gd_scene load_steps=16 format=3 uid="uid://b1xyv0funrvab"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_bnqte"]
 [ext_resource type="Texture2D" uid="uid://bdvyi4k76mg0e" path="res://assets/player1.png" id="2_i0k67"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://lmvu5ybseq55" path="res://assets/player3.png" id="4_bgx7h"]
 [ext_resource type="Texture2D" uid="uid://b08s2fxlm51a0" path="res://assets/magnetron-pull-animation3.png" id="5_0oix8"]
 [ext_resource type="Texture2D" uid="uid://cvx41f41824w8" path="res://assets/magnetron-pull-animation4.png" id="6_vq7k1"]
+[ext_resource type="AudioStream" uid="uid://d15l8uyuchni2" path="res://assets/sfx/bounce.wav" id="10_08p3t"]
+[ext_resource type="AudioStream" uid="uid://dyqb1sfqr4k3p" path="res://assets/sfx/magnetron_pulling.wav" id="11_0tvfi"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bvuj8"]
 animations = [{
@@ -107,3 +109,16 @@ texture_repeat = 2
 width = 16.0
 texture = SubResource("AnimatedTexture_hvwdy")
 texture_mode = 1
+
+[node name="BounceSFX2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_08p3t")
+volume_db = -10.0
+pitch_scale = 0.9
+max_polyphony = 2
+bus = &"SFX"
+
+[node name="MagnetronPullingSFX2D2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_0tvfi")
+volume_db = -5.0
+pitch_scale = 0.9
+bus = &"SFX"

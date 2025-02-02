@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://02w37b1oq647"]
+
+[ext_resource type="AudioStream" uid="uid://c1ossk8cugc3o" path="res://assets/sfx/explosion.wav" id="1_7adxv"]
+[ext_resource type="Script" path="res://scenes/particles/explosion_effect.gd" id="1_wy2oy"]
+
+[sub_resource type="Curve" id="Curve_idogq"]
+_data = [Vector2(0.00327869, 1), 0.0, 1.4, 0, 0, Vector2(0.278689, 0.615637), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_s2ud2"]
+offsets = PackedFloat32Array(0.523466, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[node name="ExplosionEffect" type="CPUParticles2D"]
+self_modulate = Color(1, 0.563667, 0.23, 1)
+emitting = false
+amount = 60
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+scale_amount_min = 3.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_idogq")
+color_ramp = SubResource("Gradient_s2ud2")
+script = ExtResource("1_wy2oy")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+editor_description = "Short Explosion 1 by AceOfSpadesProduc100 -- https://freesound.org/s/334266/ -- License: Attribution 4.0"
+stream = ExtResource("1_7adxv")
+bus = &"SFX"

@@ -76,7 +76,7 @@ func on_player_death():
 
 
 func _onWeakPointBodyEntered(_body: Node2D, weakPointNode: Area2D) -> void:
-	weakPointNode.queue_free()
+	weakPointNode.destroy()
 	if currentPhase == 3:
 		boss_defeat.emit()
 	else:

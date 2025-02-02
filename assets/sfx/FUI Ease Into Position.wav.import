@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://21jh3fc7n3mi"
+path="res://.godot/imported/FUI Ease Into Position.wav-84f5211109526fe950b7ee70c71a9bde.sample"
+
+[deps]
+
+source_file="res://assets/sfx/FUI Ease Into Position.wav"
+dest_files=["res://.godot/imported/FUI Ease Into Position.wav-84f5211109526fe950b7ee70c71a9bde.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

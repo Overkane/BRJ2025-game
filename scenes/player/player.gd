@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+# Player stats
+var deathCount := 0
+var timeElapsed := 0
+
 # Player related
 const MAX_SPACE_JUMP_SPEED = 210.
 const MIN_SPACE_JUMP_SPEED = 100.
@@ -15,6 +19,7 @@ var currentMagnetron: CharacterBody2D
 var magnetron_orbitting_radius := 0.0
 var magnetron_orbitting_direction := 1
 var magnetron_initial_orbitting_angle := 0.0
+var isMagnettronPulling := false
 
 # Checkpoint system
 var magnetronCheckpoint: CharacterBody2D
@@ -22,6 +27,7 @@ var checkpointPosition: Vector2
 var checkpointAnglePosition: float
 var checkpointOrbittingRadius: float
 var checkpoint_magnetron_orbitting_direction: float
+var isFirstCheckpoint := true # Don't play checkpoint sound on first checkpoint
 
 
 func _ready():
@@ -62,6 +68,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_released("RMB"):
 		%DirectionMarker.hide()
 		if $Node/PullTrajectory.visible:
+			isMagnettronPulling = false
 			$Node/PullTrajectory.clear_points()
 			$Node/PullTrajectory.hide()
 
@@ -78,6 +85,30 @@ func _physics_process(_delta: float) -> void:
 		magnetron_initial_orbitting_angle = magnetron_initial_orbitting_angle + magnetron_orbitting_direction * MAGNETRON_ORBITING_ANGULAR_SPEED * _delta
 		global_position = (Vector2(1,0) * magnetron_orbitting_radius).rotated(magnetron_initial_orbitting_angle) + currentMagnetron.global_position
 
+	# Check if can still pull, that means magnetron is still visible
+	# if isMagnettronPulling:
+	# 	var area2DNearby = $MagnetronPullChecker.get_overlapping_bodies() as Array[CharacterBody2D]
+	# 	var distancesToMagnetrons := {}
+	# 	var closestDistance := 100000.0 # TODO fix condition
+
+	# 	if area2DNearby.size() > 0:
+	# 		for staticBody in area2DNearby:
+	# 			if staticBody.is_in_group("magnetrons"):
+	# 				var space_state = get_world_2d().direct_space_state
+
+	# 				var query = PhysicsRayQueryParameters2D.create(global_position, staticBody.global_position, 1)
+	# 				var result = space_state.intersect_ray(query)
+	# 				if result:
+	# 					if result.collider.is_in_group("magnetrons"):
+	# 						var distance = staticBody.global_position.distance_to(global_position)
+	# 						closestDistance = min(closestDistance, distance)
+
+	# 						distancesToMagnetrons[distance] = staticBody
+	# 	if closestDistance > 0 and closestDistance != 100000.0:
+	# 		pass
+	# 	else:
+	# 		isMagnettronPulling = false
+
 	# Sucking towards closests visible magnetron in not orbitting near magnetron
 	if Input.is_action_pressed("RMB") and not canUseSpaceJump:
 		var area2DNearby = $MagnetronPullChecker.get_overlapping_bodies() as Array[CharacterBody2D]
@@ -89,7 +120,7 @@ func _physics_process(_delta: float) -> void:
 				if staticBody.is_in_group("magnetrons"):
 					var space_state = get_world_2d().direct_space_state
 
-					var query = PhysicsRayQueryParameters2D.create(global_position, staticBody.global_position, 1)
+					var query = PhysicsRayQueryParameters2D.create(global_position, staticBody.global_position)
 					var result = space_state.intersect_ray(query)
 					if result:
 						if result.collider.is_in_group("magnetrons"):
@@ -107,11 +138,14 @@ func _physics_process(_delta: float) -> void:
 			$Node/PullTrajectory.clear_points()
 			$Node/PullTrajectory.add_point(global_position)
 			$Node/PullTrajectory.add_point(closestMagnetron.global_position)
+			isMagnettronPulling = true
+			$MagnetronPullingSFX2D2.play()
 
 	# General movement
 	var collision := move_and_collide(velocity * _delta)
 	if collision:
-		velocity = velocity.bounce(collision.get_normal()) * 0.9
+		velocity = velocity.bounce(collision.get_normal())
+		$BounceSFX2D.play()
 	
 	rotation = global_position.direction_to(oldPosition).angle()
 
@@ -154,15 +188,17 @@ func resetSpaceJump() -> void:
 	canUseSpaceJumpBonus = false
 
 func activateCheckpoint(magnetron: CharacterBody2D) -> void:
-	if magnetronCheckpoint != null:
-		magnetronCheckpoint.deactivate_checkpoint()
-	magnetron.activate_checkpoint()
+	if magnetronCheckpoint != magnetron:
+		if magnetronCheckpoint != null:
+			magnetronCheckpoint.deactivate_checkpoint()
+		magnetron.activate_checkpoint(not isFirstCheckpoint)
+		isFirstCheckpoint = false
 
-	magnetronCheckpoint = currentMagnetron
-	checkpointPosition = global_position
-	checkpointAnglePosition = magnetron_initial_orbitting_angle
-	checkpointOrbittingRadius = magnetron_orbitting_radius
-	checkpoint_magnetron_orbitting_direction = magnetron_orbitting_direction
+		magnetronCheckpoint = currentMagnetron
+		checkpointPosition = global_position
+		checkpointAnglePosition = magnetron_initial_orbitting_angle
+		checkpointOrbittingRadius = magnetron_orbitting_radius
+		checkpoint_magnetron_orbitting_direction = magnetron_orbitting_direction
 
 func on_death_reset() -> void:
 	if magnetronCheckpoint != null:

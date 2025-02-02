@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ddoqwbgiwfsws"
+path="res://.godot/imported/UIMvmt_Window Open Thin 05_RSCPC_USIN.wav-e73fe41caed63fb7c2b940c3adcd56f5.sample"
+
+[deps]
+
+source_file="res://assets/sfx/UIMvmt_Window Open Thin 05_RSCPC_USIN.wav"
+dest_files=["res://.godot/imported/UIMvmt_Window Open Thin 05_RSCPC_USIN.wav-e73fe41caed63fb7c2b940c3adcd56f5.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

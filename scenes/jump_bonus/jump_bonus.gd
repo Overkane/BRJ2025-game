@@ -11,6 +11,7 @@ func _on_body_entered(body:Node2D) -> void:
 		player_bonus_jump_pickup.connect(connectedFunction)
 	player_bonus_jump_pickup.emit()
 	
+	$PickupSFX2D.play()
 	hide()
 	$CollisionShape2D.set_deferred("disabled", true)
 	await get_tree().create_timer(5.).timeout

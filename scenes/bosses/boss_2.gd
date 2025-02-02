@@ -154,7 +154,7 @@ func on_player_death():
 
 
 func _onWeakPointBodyEntered(_body: Node2D, weakPointNode: Area2D, boss: CharacterBody2D) -> void:
-	weakPointNode.queue_free()
+	weakPointNode.destroy()
 
 	# 3rd phase means boss is down, cuz 2 weak point per each one
 	if boss == bossA:
