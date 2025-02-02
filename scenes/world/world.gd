@@ -20,6 +20,13 @@ func _ready():
 	$Boss1/Boss1BlockerEnter/CollisionShape2D.set_deferred("disabled", true)
 	$Boss2/Boss2BlockerEnter/CollisionShape2D.set_deferred("disabled", true)
 
+	$HUD/PauseMenu/MarginContainer/HBoxContainer/ResumeButton.pressed.connect(_on_button_pressed_sfx)
+	$HUD/PauseMenu/MarginContainer/HBoxContainer/ResumeButton.mouse_entered.connect(_on_button_hover_sfx)
+	$HUD/PauseMenu/MarginContainer/HBoxContainer/ResetButton.pressed.connect(_on_button_pressed_sfx)
+	$HUD/PauseMenu/MarginContainer/HBoxContainer/ResetButton.mouse_entered.connect(_on_button_hover_sfx)
+	$HUD/PauseMenu/MarginContainer/HBoxContainer/OptionsButton.pressed.connect(_on_button_pressed_sfx)
+	$HUD/PauseMenu/MarginContainer/HBoxContainer/OptionsButton.mouse_entered.connect(_on_button_hover_sfx)
+
 	$Player.player_moved.connect(_on_player_move)
 	
 func _input(event):
@@ -144,6 +151,11 @@ func _on_options_button_pressed() -> void:
 func _on_options_menu_return_to_main_menu() -> void:
 	%OptionsMenuContainer.hide()
 
+func _on_button_pressed_sfx() -> void:
+	$PressUISFX2D.play()
+	
+func _on_button_hover_sfx() -> void:
+	$HoverUISFX2D.play()
 
 func destroyTileActivators(cellPosition: Vector2i) -> void:
 	$TileMapLayer.erase_cell(cellPosition)

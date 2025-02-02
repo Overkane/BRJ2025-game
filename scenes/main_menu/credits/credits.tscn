@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dy1ucm14pdeq3"]
+[gd_scene load_steps=4 format=3 uid="uid://dy1ucm14pdeq3"]
 
 [ext_resource type="Script" path="res://scenes/main_menu/credits/credits.gd" id="1_0a8mt"]
+[ext_resource type="AudioStream" uid="uid://u2l022b2b2xw" path="res://assets/sfx/UI hover.wav" id="2_ngyu7"]
+[ext_resource type="AudioStream" uid="uid://ccegocsb16ymg" path="res://assets/sfx/UI press.wav" id="3_w04sg"]
 
 [node name="Credits" type="Control"]
 layout_mode = 3
@@ -89,4 +91,15 @@ size_flags_vertical = 4
 text = "Back
 "
 
+[node name="HoverUISFX2D" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ngyu7")
+volume_db = -20.0
+bus = &"SFX"
+
+[node name="PressUISFX2D" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_w04sg")
+volume_db = -20.0
+bus = &"SFX"
+
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/Footer/BackButton" to="." method="_on_back_button_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Footer/BackButton" to="." method="_on_back_button_pressed"]

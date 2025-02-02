@@ -40,7 +40,11 @@ func _on_sfx_slider_value_changed(value:float) -> void:
 	AudioServer.set_bus_volume_db(SoundBuses.SFX, linear_to_db(value))
 
 func _on_back_button_pressed() -> void:
+	$PressUISFX2D.play()
 	return_to_main_menu.emit()
+
+func _on_back_button_mouse_entered() -> void:
+	$HoverUISFX2D.play()
 
 
 func set_default_settings() -> void:

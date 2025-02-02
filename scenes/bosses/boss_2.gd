@@ -116,7 +116,7 @@ func shootA(animationName: String) -> void:
 			
 			$ProjectileShotSFX2D.play()
 
-			await get_tree().create_timer(0.85).timeout
+			await get_tree().create_timer(1.).timeout
 
 	bossABehaviourLoop()
 

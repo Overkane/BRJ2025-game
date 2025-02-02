@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmkdd8vejyrav"]
+[gd_scene load_steps=4 format=3 uid="uid://cmkdd8vejyrav"]
 
 [ext_resource type="Script" path="res://scenes/main_menu/options/options_menu.gd" id="1_0cimc"]
+[ext_resource type="AudioStream" uid="uid://u2l022b2b2xw" path="res://assets/sfx/UI hover.wav" id="2_6iup4"]
+[ext_resource type="AudioStream" uid="uid://ccegocsb16ymg" path="res://assets/sfx/UI press.wav" id="3_p6a0d"]
 
 [node name="OptionsMenu" type="Control"]
 layout_mode = 3
@@ -134,8 +136,19 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Back"
 
+[node name="HoverUISFX2D" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_6iup4")
+volume_db = -20.0
+bus = &"SFX"
+
+[node name="PressUISFX2D" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_p6a0d")
+volume_db = -20.0
+bus = &"SFX"
+
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/VideoSettingsContainer/MouseLockCheckBox" to="." method="_on_check_box_pressed"]
 [connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/MarginContainer/AudioSettingsContainer/MarginContainer/MasterSlider" to="." method="_on_master_slider_value_changed"]
 [connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/MarginContainer/AudioSettingsContainer/MarginContainer2/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/SplitContainer/MarginContainer/AudioSettingsContainer/MarginContainer3/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="mouse_entered" from="PanelContainer/MarginContainer/VBoxContainer/Footer/BackButton" to="." method="_on_back_button_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Footer/BackButton" to="." method="_on_back_button_pressed"]

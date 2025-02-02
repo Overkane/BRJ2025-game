@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsyhl0fbklx8b"]
+[gd_scene load_steps=10 format=3 uid="uid://dsyhl0fbklx8b"]
 
 [ext_resource type="Script" path="res://scenes/main_menu/main_menu.gd" id="1_2fi0w"]
 [ext_resource type="Shader" path="res://scenes/main_menu/main_menu.gdshader" id="1_sa1lo"]
 [ext_resource type="AudioStream" uid="uid://cbom36v322gxt" path="res://assets/music/Bleeping Demo.mp3" id="2_7gjwb"]
 [ext_resource type="PackedScene" uid="uid://dy1ucm14pdeq3" path="res://scenes/main_menu/credits/credits.tscn" id="3_2h6cr"]
 [ext_resource type="PackedScene" uid="uid://cmkdd8vejyrav" path="res://scenes/main_menu/options/options_menu.tscn" id="3_bnxyv"]
+[ext_resource type="AudioStream" uid="uid://u2l022b2b2xw" path="res://assets/sfx/UI hover.wav" id="6_uy3li"]
+[ext_resource type="AudioStream" uid="uid://ccegocsb16ymg" path="res://assets/sfx/UI press.wav" id="7_cegcs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fj8tr"]
 shader = ExtResource("1_sa1lo")
@@ -104,6 +106,15 @@ layout_mode = 1
 [node name="Credits" parent="." instance=ExtResource("3_2h6cr")]
 visible = false
 layout_mode = 1
+
+[node name="HoverUISFX2D" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_uy3li")
+bus = &"SFX"
+
+[node name="PressUISFX2D" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_cegcs")
+volume_db = -20.0
+bus = &"SFX"
 
 [connection signal="pressed" from="Menu/MarginContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Menu/MarginContainer2/OptionsButton" to="." method="_on_options_button_pressed"]
