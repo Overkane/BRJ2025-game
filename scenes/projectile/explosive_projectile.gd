@@ -9,6 +9,8 @@ const SPEED = 50
 var initial_pos: Vector2
 var target_pos: Vector2
 
+var explosion_effect_scene := preload("res://scenes/particles/explosion_effect.tscn")
+
 func _ready():
 	body_entered.connect(_on_body_enter)
 	
@@ -31,6 +33,9 @@ func _physics_process(delta):
 
 
 func boom():
+	var explosion_effect = explosion_effect_scene.instantiate()
+	explosion_effect.scale = Vector2(2, 2)
+	ParticleSystem.add_effect(explosion_effect, global_position)
 	for body in $ExplosionRadius2D.get_overlapping_bodies():
 		if body.is_in_group("player"):
 			player_hit.emit()

@@ -93,7 +93,7 @@ func _on_boss_defeat(boss: CharacterBody2D) -> void:
 		var seconds = int(timeOverall)
 		timeOverall -= seconds
 		var milisec = int(timeOverall * 100)
-		timerText = timerText.format([str(timeMins) + ":" + str(seconds) + ":" + str(milisec)]) 
+		$HUD/GameWonScreen/MarginContainer/VBoxContainer/TimeCount.text = timerText.format([str(timeMins) + ":" + str(seconds) + ":" + str(milisec)]) 
 		$HUD/GameWonScreen.show()
 
 func _on_boss_reset(boss: CharacterBody2D) -> void:
