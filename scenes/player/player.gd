@@ -68,7 +68,6 @@ func _input(event: InputEvent) -> void:
 		velocity = finite_vector
 
 		%DirectionMarker.hide()
-		print(velocity)
 	if event.is_action_released("RMB"):
 		%DirectionMarker.hide()
 		if $Node/PullTrajectory.visible:

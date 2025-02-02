@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cu2yt2tmv713q"]
+[gd_scene load_steps=12 format=3 uid="uid://cu2yt2tmv713q"]
 
 [ext_resource type="Script" path="res://scenes/bosses/boss_3.gd" id="1_5x2gb"]
 [ext_resource type="PackedScene" uid="uid://b8mqkmk1k6cmr" path="res://scenes/misc/boss_blocker.tscn" id="4_gb3bg"]
@@ -7,9 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://cxmr21cgijd61" path="res://scenes/jump_bonus/jump_bonus.tscn" id="6_sqqws"]
 [ext_resource type="Texture2D" uid="uid://dvycq7veka7c2" path="res://assets/boss3-eye.png" id="7_u3dub"]
 [ext_resource type="PackedScene" uid="uid://bv2mryk3m0kc2" path="res://scenes/activator/activator.tscn" id="7_wr3xa"]
+[ext_resource type="AudioStream" uid="uid://byasu4i4w077e" path="res://assets/sfx/button_shake.wav" id="8_eu56t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2kkhk"]
-size = Vector2(8.375, 82)
+size = Vector2(8.375, 107)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8c574"]
 animations = [{
@@ -42,14 +43,14 @@ position = Vector2(-103, 0)
 rotation = -1.5708
 
 [node name="WeakPoint3" parent="." instance=ExtResource("7_wr3xa")]
-position = Vector2(-72, -91)
-rotation = 1.5708
+position = Vector2(251, -109)
+rotation = 4.71239
 
 [node name="WeakPoint1" parent="." instance=ExtResource("7_wr3xa")]
-position = Vector2(-232, -53)
+position = Vector2(-234, -69)
 
 [node name="WeakPoint2" parent="." instance=ExtResource("7_wr3xa")]
-position = Vector2(-233, 101)
+position = Vector2(-227, 69)
 rotation = 3.14159
 
 [node name="WeakPoint6" parent="." instance=ExtResource("7_wr3xa")]
@@ -57,132 +58,46 @@ position = Vector2(27, 0)
 rotation = 4.71239
 
 [node name="WeakPoint5" parent="." instance=ExtResource("7_wr3xa")]
-position = Vector2(165, 96)
+position = Vector2(165, 123)
 rotation = 1.5708
 
 [node name="BaseSprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("4_y0u36")
 
 [node name="Boss3AreaEnter" type="Area2D" parent="."]
-position = Vector2(-42, 15)
+position = Vector2(-76, 10)
 collision_mask = 2
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Boss3AreaEnter"]
-position = Vector2(-157, -9)
-shape = SubResource("RectangleShape2D_2kkhk")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="Boss3AreaEnter"]
-position = Vector2(-192, 33)
-rotation = 1.5708
+position = Vector2(-157, -9.5)
 shape = SubResource("RectangleShape2D_2kkhk")
 
 [node name="Boss3BlockerEnter" parent="." instance=ExtResource("4_gb3bg")]
 visible = false
 position = Vector2(-288, -32)
 
-[node name="JumpBonus" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(252, 74)
-
-[node name="JumpBonus19" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(231, 74)
-
-[node name="JumpBonus20" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(216, 134)
-
-[node name="JumpBonus21" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(164, 154)
-
-[node name="JumpBonus2" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(-136, 152)
-
-[node name="JumpBonus22" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(-136, 132)
-
-[node name="JumpBonus3" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(251, 153)
-
-[node name="JumpBonus4" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(197, 95)
-
-[node name="JumpBonus5" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(-264, 151)
-
-[node name="JumpBonus6" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(-217, 122)
-
-[node name="JumpBonus7" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(-184, -138)
-
-[node name="JumpBonus25" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(-255, -80)
-
-[node name="JumpBonus27" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(-209, -79)
-
-[node name="JumpBonus26" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(-255, -134)
-
-[node name="JumpBonus10" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(-128, -138)
-
-[node name="JumpBonus8" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(1, -156)
-
-[node name="JumpBonus11" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(96, -145)
-
-[node name="JumpBonus9" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(232, -146)
-
-[node name="JumpBonus12" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(87, 12)
-
-[node name="JumpBonus24" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(63, -37)
-
-[node name="JumpBonus13" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(88, -89)
-
-[node name="JumpBonus14" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(-4, -105)
-
-[node name="JumpBonus15" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(-4, -76)
-
-[node name="JumpBonus16" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(-54, 84)
-
-[node name="JumpBonus23" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(-32, 147)
-
-[node name="JumpBonus17" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(114, 115)
-
-[node name="JumpBonus18" parent="." instance=ExtResource("6_sqqws")]
-position = Vector2(1, -133)
-
 [node name="Magnetron" parent="." instance=ExtResource("5_84wuc")]
-position = Vector2(-156, 37)
+position = Vector2(-177, 1)
 
 [node name="Magnetron3" parent="." instance=ExtResource("5_84wuc")]
-position = Vector2(191, -81)
+position = Vector2(95, -1)
 
 [node name="Magnetron5" parent="." instance=ExtResource("5_84wuc")]
-position = Vector2(192, 11)
+position = Vector2(-228, -119)
 
 [node name="Magnetron4" parent="." instance=ExtResource("5_84wuc")]
-position = Vector2(23, 114)
+position = Vector2(-225, 125)
 
 [node name="Boss3BlockerExit1" parent="." instance=ExtResource("4_gb3bg")]
 position = Vector2(-96, -32)
 
 [node name="Boss3BlockerFullOpen" parent="." instance=ExtResource("4_gb3bg")]
-position = Vector2(-112, -48)
+position = Vector2(-96, -64)
 rotation = 1.5708
 
 [node name="Boss3BlockerFullOpen2" parent="." instance=ExtResource("4_gb3bg")]
-position = Vector2(-96, -48)
+position = Vector2(-96, 48)
 rotation = 1.5708
 
 [node name="Boss3BlockerExit2" parent="." instance=ExtResource("4_gb3bg")]
@@ -196,10 +111,6 @@ position = Vector2(-48, -32)
 
 [node name="Boss3BlockerExit5" parent="." instance=ExtResource("4_gb3bg")]
 position = Vector2(-32, -32)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-build_mode = 1
-polygon = PackedVector2Array(-287, -176, -287, -175, -288, -175, -288, -161, -287, -161, -287, -160, -286, -160, -286, -48, -287, -48, -287, -47, -288, -47, -288, -45, -289, -45, -289, -44, -288, -44, -288, -36, -289, -36, -289, -35, -288, -35, -288, -33, -287, -33, -287, -32, -273, -32, -273, -33, -272, -33, -272, -34, -192, -34, -192, -33, -191, -33, -191, -32, -177, -32, -177, -33, -176, -33, -176, -47, -177, -47, -177, -48, -178, -48, -178, -96, -177, -96, -177, -97, -176, -97, -176, -111, -177, -111, -177, -112, -191, -112, -191, -111, -192, -111, -192, -97, -191, -97, -191, -96, -190, -96, -190, -48, -191, -48, -191, -47, -192, -47, -192, -46, -272, -46, -272, -47, -273, -47, -273, -48, -274, -48, -274, -160, -273, -160, -273, -161, -272, -161, -272, -162, 256, -162, 256, -161, 257, -161, 257, -160, 258, -160, 258, 160, 257, 160, 257, 161, 256, 161, 256, 162, 160, 162, 160, 161, 159, 161, 159, 160, 158, 160, 158, 80, 159, 80, 159, 79, 160, 79, 160, 78, 208, 78, 208, 79, 209, 79, 209, 80, 210, 80, 210, 112, 209, 112, 209, 113, 208, 113, 208, 127, 209, 127, 209, 128, 223, 128, 223, 127, 224, 127, 224, 113, 223, 113, 223, 112, 222, 112, 222, 80, 223, 80, 223, 79, 224, 79, 224, 65, 223, 65, 223, 64, 209, 64, 209, 65, 208, 65, 208, 66, 160, 66, 160, 65, 159, 65, 159, 64, 145, 64, 145, 65, 144, 65, 144, 79, 145, 79, 145, 80, 146, 80, 146, 160, 145, 160, 145, 161, 144, 161, 144, 162, -272, 162, -272, 161, -273, 161, -273, 160, -274, 160, -274, 96, -273, 96, -273, 95, -272, 95, -272, 94, -192, 94, -192, 95, -191, 95, -191, 96, -190, 96, -190, 112, -191, 112, -191, 113, -192, 113, -192, 127, -191, 127, -191, 128, -177, 128, -177, 127, -176, 127, -176, 126, -96, 126, -96, 127, -95, 127, -95, 128, -81, 128, -81, 127, -80, 127, -80, 113, -81, 113, -81, 112, -82, 112, -82, 64, -81, 64, -81, 63, -80, 63, -80, 62, 32, 62, 32, 63, 33, 63, 33, 64, 47, 64, 47, 63, 48, 63, 48, 49, 47, 49, 47, 48, 46, 48, 46, -48, 47, -48, 47, -49, 48, -49, 48, -63, 47, -63, 47, -64, 33, -64, 33, -63, 32, -63, 32, -62, -80, -62, -80, -63, -81, -63, -81, -64, -82, -64, -82, -112, -81, -112, -81, -113, -80, -113, -80, -114, 112, -114, 112, -113, 113, -113, 113, -112, 114, -112, 114, -16, 113, -16, 113, -15, 112, -15, 112, -1, 113, -1, 113, 0, 127, 0, 127, -1, 128, -1, 128, -15, 127, -15, 127, -16, 126, -16, 126, -112, 127, -112, 127, -113, 128, -113, 128, -127, 127, -127, 127, -128, 113, -128, 113, -127, 112, -127, 112, -126, -80, -126, -80, -127, -81, -127, -81, -128, -95, -128, -95, -127, -96, -127, -96, -113, -95, -113, -95, -112, -94, -112, -94, -64, -95, -64, -95, -63, -96, -63, -96, -49, -95, -49, -95, -47, -96, -47, -96, -33, -95, -33, -95, -32, -81, -32, -81, -33, -79, -33, -79, -32, -65, -32, -65, -33, -63, -33, -63, -32, -49, -32, -49, -33, -47, -33, -47, -32, -33, -32, -33, -33, -31, -33, -31, -32, -17, -32, -17, -33, -16, -33, -16, -47, -17, -47, -17, -48, -31, -48, -31, -47, -33, -47, -33, -48, -47, -48, -47, -47, -49, -47, -49, -48, -63, -48, -63, -47, -65, -47, -65, -48, -79, -48, -79, -47, -81, -47, -81, -49, -80, -49, -80, -50, 32, -50, 32, -49, 33, -49, 33, -48, 34, -48, 34, 48, 33, 48, 33, 49, 32, 49, 32, 50, -80, 50, -80, 49, -81, 49, -81, 47, -79, 47, -79, 48, -65, 48, -65, 47, -63, 47, -63, 48, -49, 48, -49, 47, -47, 47, -47, 48, -33, 48, -33, 47, -31, 47, -31, 48, -17, 48, -17, 47, -16, 47, -16, 33, -17, 33, -17, 32, -31, 32, -31, 33, -33, 33, -33, 32, -47, 32, -47, 33, -49, 33, -49, 32, -63, 32, -63, 33, -65, 33, -65, 32, -79, 32, -79, 33, -81, 33, -81, 32, -95, 32, -95, 33, -96, 33, -96, 47, -95, 47, -95, 49, -96, 49, -96, 63, -95, 63, -95, 64, -94, 64, -94, 112, -95, 112, -95, 113, -96, 113, -96, 114, -176, 114, -176, 113, -177, 113, -177, 112, -178, 112, -178, 96, -177, 96, -177, 95, -176, 95, -176, 81, -177, 81, -177, 80, -191, 80, -191, 81, -192, 81, -192, 82, -272, 82, -272, 81, -273, 81, -273, 80, -274, 80, -274, 48, -273, 48, -273, 47, -272, 47, -272, 33, -273, 33, -273, 32, -287, 32, -287, 33, -288, 33, -288, 35, -289, 35, -289, 36, -288, 36, -288, 44, -289, 44, -289, 45, -288, 45, -288, 47, -287, 47, -287, 48, -286, 48, -286, 80, -287, 80, -287, 81, -288, 81, -288, 95, -287, 95, -287, 96, -286, 96, -286, 160, -287, 160, -287, 161, -288, 161, -288, 175, -287, 175, -287, 176, -273, 176, -273, 175, -272, 175, -272, 174, 144, 174, 144, 175, 145, 175, 145, 176, 159, 176, 159, 175, 160, 175, 160, 174, 256, 174, 256, 175, 257, 175, 257, 176, 271, 176, 271, 175, 272, 175, 272, 161, 271, 161, 271, 160, 270, 160, 270, -160, 271, -160, 271, -161, 272, -161, 272, -175, 271, -175, 271, -176, 257, -176, 257, -175, 256, -175, 256, -174, -272, -174, -272, -175, -273, -175, -273, -176)
 
 [node name="BossRightEye" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -224,3 +135,53 @@ position = Vector2(278, 168)
 
 [node name="LeftEyeMarkerBottom" type="Marker2D" parent="."]
 position = Vector2(-303, -164)
+
+[node name="ButtonShakeSFX2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-96, 0)
+stream = ExtResource("8_eu56t")
+
+[node name="Pickups" type="Node2D" parent="."]
+
+[node name="JumpBonus19" parent="Pickups" instance=ExtResource("6_sqqws")]
+position = Vector2(179, -26)
+
+[node name="JumpBonus2" parent="Pickups" instance=ExtResource("6_sqqws")]
+position = Vector2(-126, 102)
+
+[node name="JumpBonus22" parent="Pickups" instance=ExtResource("6_sqqws")]
+position = Vector2(-24, 143)
+
+[node name="JumpBonus10" parent="Pickups" instance=ExtResource("6_sqqws")]
+position = Vector2(-128, -138)
+
+[node name="JumpBonus11" parent="Pickups" instance=ExtResource("6_sqqws")]
+position = Vector2(-23, -144)
+
+[node name="JumpBonus9" parent="Pickups" instance=ExtResource("6_sqqws")]
+position = Vector2(177, -110)
+
+[node name="JumpBonus12" parent="Pickups" instance=ExtResource("6_sqqws")]
+position = Vector2(230, 122)
+
+[node name="JumpBonus24" parent="Pickups" instance=ExtResource("6_sqqws")]
+position = Vector2(90, -119)
+
+[node name="JumpBonus13" parent="Pickups" instance=ExtResource("6_sqqws")]
+position = Vector2(-21, -91)
+
+[node name="JumpBonus16" parent="Pickups" instance=ExtResource("6_sqqws")]
+position = Vector2(-23, 86)
+
+[node name="JumpBonus23" parent="Pickups" instance=ExtResource("6_sqqws")]
+position = Vector2(101, 125)
+
+[node name="JumpBonus17" parent="Pickups" instance=ExtResource("6_sqqws")]
+position = Vector2(227, 34)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(-287, -176, -287, -175, -288, -175, -288, -161, -287, -161, -287, -160, -286, -160, -286, -64, -287, -64, -287, -63, -288, -63, -288, -49, -287, -49, -287, -47, -288, -47, -288, -45, -289, -45, -289, -44, -288, -44, -288, -36, -289, -36, -289, -35, -288, -35, -288, -33, -287, -33, -287, -32, -273, -32, -273, -33, -272, -33, -272, -47, -273, -47, -273, -49, -272, -49, -272, -50, -176, -50, -176, -49, -175, -49, -175, -48, -161, -48, -161, -49, -160, -49, -160, -63, -161, -63, -161, -64, -162, -64, -162, -96, -161, -96, -161, -97, -160, -97, -160, -111, -161, -111, -161, -112, -175, -112, -175, -111, -176, -111, -176, -97, -175, -97, -175, -96, -174, -96, -174, -64, -175, -64, -175, -63, -176, -63, -176, -62, -272, -62, -272, -63, -273, -63, -273, -64, -274, -64, -274, -160, -273, -160, -273, -161, -272, -161, -272, -162, 144, -162, 144, -161, 145, -161, 145, -160, 146, -160, 146, -80, 145, -80, 145, -79, 144, -79, 144, -65, 145, -65, 145, -64, 159, -64, 159, -65, 160, -65, 160, -79, 159, -79, 159, -80, 158, -80, 158, -160, 159, -160, 159, -161, 160, -161, 160, -162, 256, -162, 256, -161, 257, -161, 257, -160, 258, -160, 258, 160, 257, 160, 257, 161, 256, 161, 256, 162, 160, 162, 160, 161, 159, 161, 159, 160, 158, 160, 158, 80, 159, 80, 159, 79, 160, 79, 160, 65, 159, 65, 159, 64, 145, 64, 145, 65, 144, 65, 144, 79, 145, 79, 145, 80, 146, 80, 146, 160, 145, 160, 145, 161, 144, 161, 144, 162, -272, 162, -272, 161, -273, 161, -273, 160, -274, 160, -274, 64, -273, 64, -273, 63, -272, 63, -272, 62, -176, 62, -176, 63, -175, 63, -175, 64, -174, 64, -174, 96, -175, 96, -175, 97, -176, 97, -176, 111, -175, 111, -175, 112, -161, 112, -161, 111, -160, 111, -160, 97, -161, 97, -161, 96, -162, 96, -162, 64, -161, 64, -161, 63, -160, 63, -160, 49, -161, 49, -161, 48, -175, 48, -175, 49, -176, 49, -176, 50, -272, 50, -272, 49, -273, 49, -273, 47, -272, 47, -272, 33, -273, 33, -273, 32, -287, 32, -287, 33, -288, 33, -288, 35, -289, 35, -289, 36, -288, 36, -288, 44, -289, 44, -289, 45, -288, 45, -288, 47, -287, 47, -287, 49, -288, 49, -288, 63, -287, 63, -287, 64, -286, 64, -286, 160, -287, 160, -287, 161, -288, 161, -288, 175, -287, 175, -287, 176, -273, 176, -273, 175, -272, 175, -272, 174, 144, 174, 144, 175, 145, 175, 145, 176, 159, 176, 159, 175, 160, 175, 160, 174, 256, 174, 256, 175, 257, 175, 257, 176, 271, 176, 271, 175, 272, 175, 272, 161, 271, 161, 271, 160, 270, 160, 270, -160, 271, -160, 271, -161, 272, -161, 272, -175, 271, -175, 271, -176, 257, -176, 257, -175, 256, -175, 256, -174, 160, -174, 160, -175, 159, -175, 159, -176, 145, -176, 145, -175, 144, -175, 144, -174, -272, -174, -272, -175, -273, -175, -273, -176)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(-95, -64, -95, -63, -96, -63, -96, -49, -95, -49, -95, -47, -96, -47, -96, -33, -95, -33, -95, -32, -81, -32, -81, -33, -79, -33, -79, -32, -65, -32, -65, -33, -63, -33, -63, -32, -49, -32, -49, -33, -47, -33, -47, -32, -33, -32, -33, -33, -31, -33, -31, -32, -17, -32, -17, -33, -16, -33, -16, -47, -17, -47, -17, -48, -31, -48, -31, -47, -33, -47, -33, -48, -47, -48, -47, -47, -49, -47, -49, -48, -63, -48, -63, -47, -65, -47, -65, -48, -79, -48, -79, -47, -81, -47, -81, -49, -80, -49, -80, -50, 32, -50, 32, -49, 33, -49, 33, -48, 34, -48, 34, 48, 33, 48, 33, 49, 32, 49, 32, 50, -80, 50, -80, 49, -81, 49, -81, 47, -79, 47, -79, 48, -65, 48, -65, 47, -63, 47, -63, 48, -49, 48, -49, 47, -47, 47, -47, 48, -33, 48, -33, 47, -31, 47, -31, 48, -17, 48, -17, 47, -16, 47, -16, 33, -17, 33, -17, 32, -31, 32, -31, 33, -33, 33, -33, 32, -47, 32, -47, 33, -49, 33, -49, 32, -63, 32, -63, 33, -65, 33, -65, 32, -79, 32, -79, 33, -81, 33, -81, 32, -95, 32, -95, 33, -96, 33, -96, 47, -95, 47, -95, 49, -96, 49, -96, 63, -95, 63, -95, 64, -81, 64, -81, 63, -80, 63, -80, 62, 32, 62, 32, 63, 33, 63, 33, 64, 47, 64, 47, 63, 48, 63, 48, 49, 47, 49, 47, 48, 46, 48, 46, -48, 47, -48, 47, -49, 48, -49, 48, -63, 47, -63, 47, -64, 33, -64, 33, -63, 32, -63, 32, -62, -80, -62, -80, -63, -81, -63, -81, -64)
