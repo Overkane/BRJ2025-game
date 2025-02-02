@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c0dvogempwjhr"]
+[gd_scene load_steps=16 format=3 uid="uid://c0dvogempwjhr"]
 
 [ext_resource type="Script" path="res://scenes/bosses/boss_1.gd" id="1_vh6w2"]
 [ext_resource type="Texture2D" uid="uid://coc5j7dfnw7jc" path="res://assets/boss1_1.png" id="2_1bsew"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://bf0qi4pdw4f5x" path="res://assets/boss1_7.png" id="8_205p1"]
 [ext_resource type="Texture2D" uid="uid://c3s0qb12yqnmu" path="res://assets/boss1_8.png" id="9_e12kb"]
 [ext_resource type="Texture2D" uid="uid://d33piay3uis4q" path="res://assets/boss1_9.png" id="10_v7bqs"]
+[ext_resource type="AudioStream" uid="uid://b6qwe75dc0wke" path="res://assets/sfx/projectile_shot.wav" id="12_h1mc5"]
+[ext_resource type="AudioStream" uid="uid://bqymrwfhrs8sn" path="res://assets/sfx/explosive_projectile_shot.wav" id="13_upwnc"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bjgeg"]
 animations = [{
@@ -111,6 +113,12 @@ shape = SubResource("RectangleShape2D_p3isx")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(73, 0)
 shape = SubResource("RectangleShape2D_p3isx")
+
+[node name="ProjectileShotSFX2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_h1mc5")
+
+[node name="ExplosiveProjectileShotSFX2D2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_upwnc")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]

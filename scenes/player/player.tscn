@@ -81,18 +81,6 @@ drag_top_margin = 0.1
 drag_right_margin = 0.1
 drag_bottom_margin = 0.1
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-self_modulate = Color(1, 1, 1, 0.137255)
-show_behind_parent = true
-amount = 4
-lifetime = 0.2
-texture = ExtResource("2_i0k67")
-spread = 0.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 100.0
-initial_velocity_max = 100.0
-angular_velocity_max = 471.11
-
 [node name="Node2" type="Node" parent="."]
 
 [node name="DirectionMarker" type="Sprite2D" parent="Node2"]

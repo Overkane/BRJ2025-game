@@ -1,7 +1,12 @@
 extends RayCast2D
 
+var canHit := false
+
 signal player_hit
 signal laser_beam_end
+
+func _ready():
+	$AnimationPlayer.animation_finished.connect(on_laser_born)
 
 func _physics_process(_delta):
 	var cast_point = target_position
@@ -9,18 +14,13 @@ func _physics_process(_delta):
 
 	if is_colliding():
 		cast_point = to_local(get_collision_point())
-	
+
 	$Line2D.points[1] = cast_point
-	
-	if get_collider().is_in_group("player"):
+	if get_collider() != null and get_collider().is_in_group("player") and canHit:
 		player_hit.emit()
 
 func _enter_tree() -> void:
-	appear()
-	await get_tree().create_timer(3).timeout
-	disappear()
-	laser_beam_end.emit()
-	queue_free()
+	canHit = false
 
 
 func setup(_position: Vector2, angle: float):
@@ -29,10 +29,9 @@ func setup(_position: Vector2, angle: float):
 	$Line2D.points[0] = Vector2.ZERO
 	$Line2D.points[1] = target_position
 
-func appear() -> void:
-	var tween = create_tween()
-	tween.tween_property($Line2D, "width", 10.0, 0.2)
 
-func disappear() -> void:
-	var tween = create_tween()
-	tween.tween_property($Line2D, "width", 0, 0.1)
+func on_laser_born(_animation_name: String) -> void:
+	canHit = true
+	await get_tree().create_timer(2).timeout
+	laser_beam_end.emit()
+	queue_free()

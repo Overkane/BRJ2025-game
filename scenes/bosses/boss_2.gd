@@ -62,6 +62,9 @@ func bossABehaviourLoop() -> void:
 			$Path2D/PathFollowBossA/Boss2A/AnimatedSprite2D.play("shotgun")
 
 func bossBBehaviourLoop() -> void:
+	if $LaserSFX2D.playing:
+		$LaserSFX2D.stop()
+
 	var attack = randi_range(0, 1)
 	if isBossBRage:
 		$Path2D/PathFollowBossB/Boss2B/AnimatedSprite2D.play("laserALL")
@@ -73,6 +76,9 @@ func bossBBehaviourLoop() -> void:
 
 func shootA(animationName: String) -> void:
 	var number_of_attacks = 2 if not isBossARage else 4 
+	# Can be killed during animation6
+	if bossA == null:
+		return
 
 	if animationName == "rocket_launcher":
 		for i in number_of_attacks:
@@ -80,6 +86,8 @@ func shootA(animationName: String) -> void:
 			projectile.setup($Path2D/PathFollowBossA/Boss2A/ShotPointRocketLauncher.global_position, playerTarget.global_position)
 			projectile.player_hit.connect(on_player_death)
 			add_sibling(projectile)
+
+			$ExplosiveProjectileShotSFX2D2.play()
 
 			await get_tree().create_timer(1.5).timeout
 
@@ -105,12 +113,17 @@ func shootA(animationName: String) -> void:
 			projectile5.setup($Path2D/PathFollowBossA/Boss2A/ShotPointShotgun.global_position, $Path2D/PathFollowBossA/Boss2A/ShotPointRocketLauncher.global_position.direction_to(playerTarget.global_position).rotated(-PI/6))
 			projectile5.player_hit.connect(on_player_death)
 			add_sibling(projectile5)
+			
+			$ProjectileShotSFX2D.play()
 
-			await get_tree().create_timer(0.75).timeout
+			await get_tree().create_timer(0.85).timeout
 
 	bossABehaviourLoop()
 
 func shootB(animationName: String) -> void:
+
+	if bossB == null:
+		return
 	# TODO why rotation is so weird?
 	var projectile = laser_beam_scene.instantiate()
 	if animationName == "laserALL":
@@ -142,10 +155,13 @@ func shootB(animationName: String) -> void:
 		projectile.player_hit.connect(on_player_death)
 		bossB.add_child(projectile)
 		var projectile2 = laser_beam_scene.instantiate()
+		# TODO why position not global?
 		projectile2.setup($Path2D/PathFollowBossB/Boss2B/ShootPointBL.position, PI / 4 + PI / 2 + PI)
 		projectile2.player_hit.connect(on_player_death)
 		bossB.add_child(projectile2)
 	projectile.laser_beam_end.connect(bossBBehaviourLoop)
+	$LaserSFX2D.play()
+
 
 # Player died to a boss
 func on_player_death():

@@ -63,8 +63,8 @@ label_settings = SubResource("LabelSettings_fq76y")
 
 [node name="MarginContainer" type="MarginContainer" parent="Menu"]
 layout_mode = 2
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_right = 40
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_right = 60
 
 [node name="PlayButton" type="Button" parent="Menu/MarginContainer"]
 layout_mode = 2
@@ -72,8 +72,8 @@ text = "Play"
 
 [node name="MarginContainer2" type="MarginContainer" parent="Menu"]
 layout_mode = 2
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_right = 40
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_right = 60
 
 [node name="OptionsButton" type="Button" parent="Menu/MarginContainer2"]
 layout_mode = 2
@@ -81,8 +81,8 @@ text = "Options"
 
 [node name="MarginContainer3" type="MarginContainer" parent="Menu"]
 layout_mode = 2
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_right = 40
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_right = 60
 
 [node name="CreditsButton" type="Button" parent="Menu/MarginContainer3"]
 layout_mode = 2
@@ -90,8 +90,8 @@ text = "Credits"
 
 [node name="MarginContainer4" type="MarginContainer" parent="Menu"]
 layout_mode = 2
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_right = 40
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_right = 60
 
 [node name="QuitButton" type="Button" parent="Menu/MarginContainer4"]
 layout_mode = 2

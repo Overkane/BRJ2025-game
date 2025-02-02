@@ -2,7 +2,7 @@ extends Area2D
 
 signal player_hit
 
-const SPEED = 125
+const SPEED = 100
 var direction := Vector2.ZERO
 
 

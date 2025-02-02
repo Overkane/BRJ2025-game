@@ -49,6 +49,7 @@ func shoot() -> void:
 	projectile.setup($ShootPoint.global_position, position.direction_to(playerTarget.global_position))
 	projectile.player_hit.connect(on_player_death)
 	add_sibling(projectile)
+	$ProjectileShotSFX2D.play()
 	if currentPhase == 3:
 		var projectile2 = projectile_scene.instantiate()
 		projectile2.setup($ShootPoint.global_position, position.direction_to(playerTarget.global_position).rotated(PI/4))
@@ -66,6 +67,7 @@ func explosive_shot() -> void:
 	projectile.setup($ShootPoint.global_position, playerTarget.global_position)
 	projectile.player_hit.connect(on_player_death)
 	add_sibling(projectile)
+	$ExplosiveProjectileShotSFX2D2.play()
 
 	bossBehaviourLoop()
 

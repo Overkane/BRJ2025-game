@@ -21,7 +21,6 @@ func _ready():
 	$Boss2/Boss2BlockerEnter/CollisionShape2D.set_deferred("disabled", true)
 
 	$Player.player_moved.connect(_on_player_move)
-	spawn_boss3() # TODO remove it later
 	
 func _input(event):
 	if event.is_action_pressed("pause"):
@@ -79,7 +78,7 @@ func _on_boss_defeat(boss: CharacterBody2D) -> void:
 	elif boss is Boss3:
 		boss.queue_free()
 		get_tree().paused = true
-		$HUD/GameWonScreen/MarginContainer/VBoxContainer/DeathCount.text = $HUD/GameWonScreen/MarginContainer/VBoxContainer/DeathCount.format($Player.deathCount)
+		$HUD/GameWonScreen/MarginContainer/VBoxContainer/DeathCount.text = $HUD/GameWonScreen/MarginContainer/VBoxContainer/DeathCount.text.format([$Player.deathCount])
 		var timerText = $HUD/GameWonScreen/MarginContainer/VBoxContainer/TimeCount.text
 		var timeOverall = $Player.timeElapsed
 		var timeMins = int(timeOverall) / 60.
@@ -87,7 +86,7 @@ func _on_boss_defeat(boss: CharacterBody2D) -> void:
 		var seconds = int(timeOverall)
 		timeOverall -= seconds
 		var milisec = int(timeOverall * 100)
-		timerText.text = timerText.format(str(timeMins) + ":" + str(seconds) + ":" + str(milisec)) 
+		timerText = timerText.format([str(timeMins) + ":" + str(seconds) + ":" + str(milisec)]) 
 		$HUD/GameWonScreen.show()
 
 func _on_boss_reset(boss: CharacterBody2D) -> void:
@@ -165,7 +164,7 @@ func togglePauseMenu() -> void:
 		%PauseMenu.hide()
 
 func spawn_boss3() -> void:
-	if currentBoss == null and not isBoss3Defeated:
+	if not isBoss3Defeated:
 		var boss3 = boss3_scene.instantiate()
 		boss3.global_position = $Boss3/Boss3SpawnPoint.global_position
 		boss3.activate($Player)

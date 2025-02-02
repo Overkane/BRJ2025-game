@@ -35,7 +35,7 @@ var isFirstCheckpoint := true # Don't play checkpoint sound on first checkpoint
 
 
 func _ready():
-	$CPUParticles2D.emitting = false
+	Globals.player_camera = $Camera2D
 
 	# Color depends on velocity
 	gradient = Gradient.new()
@@ -59,7 +59,6 @@ func _input(event: InputEvent) -> void:
 			currentMagnetron = null
 		
 		resetSpaceJump()
-		$CPUParticles2D.emitting = true
 		
 		# Calculate jump power based on mouse distance, but can't exceed MAX_SPACE_JUMP_SPEED
 		var lastMousePos = get_global_mouse_position()
@@ -170,7 +169,6 @@ func _on_player_entered_magnetron_zone(magnetron: CharacterBody2D, isCheckpoint:
 	$Node/PullTrajectory.hide()
 
 	canUseSpaceJump = true
-	$CPUParticles2D.emitting = false
 	currentMagnetron = magnetron
 	magnetron_orbitting_radius = global_position.distance_to(magnetron.global_position)
 	magnetron_initial_orbitting_angle = magnetron.global_position.direction_to(global_position).angle()
@@ -217,7 +215,6 @@ func on_death_reset() -> void:
 	# Player death effect
 	var explosion_effect = explosion_effect_scene.instantiate()
 	ParticleSystem.add_effect(explosion_effect, global_position)
-	await get_tree().create_timer(0.2).timeout
 
 	if magnetronCheckpoint != null:
 		currentMagnetron = magnetronCheckpoint

@@ -1,19 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://02w37b1oq647"]
+[gd_scene load_steps=6 format=3 uid="uid://02w37b1oq647"]
 
 [ext_resource type="AudioStream" uid="uid://c1ossk8cugc3o" path="res://assets/sfx/explosion.wav" id="1_7adxv"]
+[ext_resource type="Shader" path="res://scenes/particles/explosion_effect.gdshader" id="1_eu21s"]
 [ext_resource type="Script" path="res://scenes/particles/explosion_effect.gd" id="1_wy2oy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltnkd"]
+shader = ExtResource("1_eu21s")
 
 [sub_resource type="Curve" id="Curve_idogq"]
 _data = [Vector2(0.00327869, 1), 0.0, 1.4, 0, 0, Vector2(0.278689, 0.615637), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="Gradient" id="Gradient_s2ud2"]
-offsets = PackedFloat32Array(0.523466, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
-
 [node name="ExplosionEffect" type="CPUParticles2D"]
 process_mode = 3
 self_modulate = Color(1, 0.563667, 0.23, 1)
+top_level = true
+material = SubResource("ShaderMaterial_ltnkd")
 emitting = false
 amount = 60
 lifetime = 0.5
@@ -26,7 +28,6 @@ initial_velocity_max = 100.0
 scale_amount_min = 3.0
 scale_amount_max = 4.0
 scale_amount_curve = SubResource("Curve_idogq")
-color_ramp = SubResource("Gradient_s2ud2")
 script = ExtResource("1_wy2oy")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

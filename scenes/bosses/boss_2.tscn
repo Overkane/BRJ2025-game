@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bcglgus2ejd77"]
+[gd_scene load_steps=32 format=3 uid="uid://bcglgus2ejd77"]
 
 [ext_resource type="Script" path="res://scenes/bosses/boss_2.gd" id="1_0r0hk"]
 [ext_resource type="Texture2D" uid="uid://cki3nqp0of8vf" path="res://assets/boss2A1.png" id="2_1pttg"]
@@ -23,6 +23,9 @@
 [ext_resource type="Texture2D" uid="uid://p2fbpig2iya5" path="res://assets/boss2B6.png" id="14_fybqc"]
 [ext_resource type="Texture2D" uid="uid://8ns8d46jo2vm" path="res://assets/boss2B7.png" id="15_b0ln2"]
 [ext_resource type="Texture2D" uid="uid://b4ch3lsjpcrgm" path="res://assets/boss2B8.png" id="16_fn3fu"]
+[ext_resource type="AudioStream" uid="uid://b6qwe75dc0wke" path="res://assets/sfx/projectile_shot.wav" id="24_qvslv"]
+[ext_resource type="AudioStream" uid="uid://bqymrwfhrs8sn" path="res://assets/sfx/explosive_projectile_shot.wav" id="25_2a4fh"]
+[ext_resource type="AudioStream" uid="uid://cwbv15xyspfkn" path="res://assets/sfx/laser.wav" id="26_h85hi"]
 
 [sub_resource type="Curve2D" id="Curve2D_srvmv"]
 _data = {
@@ -255,6 +258,18 @@ position = Vector2(14.9996, -16.0049)
 
 [node name="ShootPointBR" type="Marker2D" parent="Path2D/PathFollowBossB/Boss2B"]
 position = Vector2(-16.0004, -15.9942)
+
+[node name="ProjectileShotSFX2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-23, -192)
+stream = ExtResource("24_qvslv")
+
+[node name="ExplosiveProjectileShotSFX2D2" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(22, -192)
+stream = ExtResource("25_2a4fh")
+
+[node name="LaserSFX2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, 192)
+stream = ExtResource("26_h85hi")
 
 [connection signal="animation_finished" from="Path2D/PathFollowBossA/Boss2A/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="Path2D/PathFollowBossB/Boss2B/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_bossB_animation_finished"]
